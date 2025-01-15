@@ -1,7 +1,7 @@
 {
-  "name": "@incubateur-ademe/nosgestesclimat",
-  "version": "3.5.0",
-  "description": "Le modèle de calcul d'empreinte climat individuelle de consommation",
+  "name": "@abc-transitionbascarbone/near-modele",
+  "version": "1.0.0",
+  "description": "Modèle de calcul du projet NEAR (fork de Nos Gestes Climat)",
   "main": "index.js",
   "types": "index.d.ts",
   "module": "index.js",
