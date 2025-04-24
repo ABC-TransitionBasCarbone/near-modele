@@ -86,7 +86,7 @@ transport . voiture . boulot . sans voiture:
     > Découvrez toutes les solutions, les aides disponibles et des témoignages de salariés qui ont changé leur mobilité [en consultant notre article](https://agirpourlatransition.ademe.fr/particuliers/bureau/deplacements/boulot-auto-perso).
 
   non applicable si: seuil activation = 0
-  applicable si: voiture . km > seuil activation
+  applicable si: voiture . km2 > seuil activation
   formule:
     variations:
       - si:
@@ -171,7 +171,7 @@ transport . voiture . boulot . télétravail:
   applicable si:
     toutes ces conditions:
       - compatible
-      - voiture . km > seuil activation
+      - voiture . km2 > seuil activation
       - jours travaillés en voiture > 0
   formule: empreinte jour voiture * jours gagnés * transport . voiture . boulot . semaines
 
@@ -207,7 +207,7 @@ transport . voiture . boulot . faire du covoiturage:
     toutes ces conditions:
       - est défini: voiture . utilisateur
       - voiture . utilisateur != 'non régulier'
-      - voiture . km > seuil activation
+      - voiture . km2 > seuil activation
       - covoiturage
   icônes: 🚗👥
   formule: empreinte boulot * (1 - 1 / boulot . covoiturage . nombre de voyageurs)
@@ -230,5 +230,5 @@ transport . voiture . boulot . faire du covoiturage:
 transport . voiture . boulot . faire du covoiturage . empreinte boulot:
   valeur: transport . voiture
   contexte:
-    transport . voiture . km: boulot . distance
+    transport . voiture . km2: boulot . distance
     transport . voiture . voyageurs: 1

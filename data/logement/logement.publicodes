@@ -117,3 +117,110 @@ logement . âge:
     années 70: 50
     années 50: 70
     un siècle: 100
+
+#logement . informations:
+#  formule: 0.00001 * DPE en chiffre * statut en chiffre
+#  unité: kgCO2e
+#  note: On passe les informations de statut et de DPE dans une variable informations et non pas directement dans la somme logement car le front bug sinon
+#
+#logement . informations . statut:
+#  question: Quel est votre statut vis à vis de votre logement principal ?
+#  formule:
+#    une possibilité:
+#      choix obligatoire: oui
+#      possibilités:
+#        - propriétaire
+#        - locataire
+#        - logé gratuit
+#  par défaut: "'non renseigné'"
+#
+#logement . informations . statut . propriétaire:
+#  titre: J'en suis propriétaire
+#
+#logement . informations . statut . locataire:
+#  titre: J'en suis locataire
+#
+#logement . informations . statut . logé gratuit:
+#  titre: Je suis logé à titre gratuit
+#
+#logement . informations . statut . non renseigné:
+#  titre: Statut non renseigné
+#
+#logement . informations . statut en chiffre:
+#  titre: numéro du statut
+#  formule:
+#    variations:
+#      - si: statut = 'propriétaire'
+#        alors: 1
+#      - si: statut = 'locataire'
+#        alors: 2
+#      - si: statut = 'logé gratuit'
+#        alors: 3
+#      - sinon: 99
+#  note:  |
+#    L'objet de cette variable est de convertir le statut en un chiffre afin que la formule plus haut ne bug pas.
+#
+#logement . informations . DPE:
+#  question: Quel était le DPE de votre logement principal en 2023 ?
+#  description: |
+#    Un DPE est un Diagnostic de Performance Energétique.  Il sert à renseigner sur la performance énergétique d’un logement ou
+#    d’un bâtiment, en évaluant sa consommation d’énergie et son impact en termes d’émission de gaz à effet de serre. 
+#    Les DPE sont classés d'une échelle allant de A à G.
+#  par défaut: "'non renseigné'"
+#  formule:
+#    une possibilité:
+#      choix obligatoire: oui
+#      possibilités:
+#        - A 
+#        - B
+#        - C 
+#        - D 
+#        - E
+#        - F
+#        - G 
+#
+#logement . informations . DPE en chiffre:
+#  titre: numéro du DPE
+#  formule:
+#    variations:
+#      - si: DPE = 'A'
+#        alors: 1
+#      - si: DPE = 'B'
+#        alors: 2
+#      - si: DPE = 'C'
+#        alors: 3
+#      - si: DPE = 'D'
+#        alors: 4
+#      - si: DPE = 'E'
+#        alors: 5
+#      - si: DPE = 'F'
+#        alors: 6
+#      - si: DPE = 'G'
+#        alors: 7
+#      - sinon: 99
+#  note:  |
+#    L'objet de cette variable est de convertir le DPE en un chiffre afin que la formule plus haut ne bug pas.
+#
+#logement . informations . DPE . A:
+#  titre: DPE A
+#
+#logement . informations . DPE . B:
+#  titre: DPE B
+#
+#logement . informations . DPE . C:
+#  titre: DPE C
+#
+#logement . informations . DPE . D:
+#  titre: DPE D
+#
+#logement . informations . DPE . E:
+#  titre: DPE E
+#
+#logement . informations . DPE . F:
+#  titre: DPE F
+#
+#logement . informations . DPE . G:
+#  titre: DPE G
+#
+#logement . informations . DPE . non renseigné:
+#  titre: DPE non renseigné

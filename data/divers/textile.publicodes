@@ -10,28 +10,34 @@ divers . textile . empreinte:
   mosaique:
     type: nombre
     options:
-      - t-shirt . nombre
-      - pantalon . nombre
-      - short . nombre
-      - sweat . nombre
-      - robe . nombre
-      - chemise . nombre
-      - pull . nombre
+      - article léger . nombre #t-shirt, short, chemise, jupe
+      - article épais . nombre #pantalon, sweat, pull, robe
+#      - t-shirt . nombre
+#      - pantalon . nombre
+#      - short . nombre
+#      - sweat . nombre
+#      - robe . nombre
+#      - chemise . nombre
+#      - jupe . nombre
+#      - pull . nombre
       - chaussure . nombre
-      - manteau . nombre
+#      - manteau . nombre
       - petit article . nombre
       - gros article . nombre
     suggestions:
       aucun:
-        t-shirt . nombre: 0
-        pantalon . nombre: 0
-        short . nombre: 0
-        sweat . nombre: 0
-        robe . nombre: 0
-        chemise . nombre: 0
-        pull . nombre: 0
+        article léger . nombre: 0
+        article épais . nombre: 0
+#        t-shirt . nombre: 0
+#        pantalon . nombre: 0
+#        short . nombre: 0
+#        sweat . nombre: 0
+#        robe . nombre: 0
+#        chemise . nombre: 0
+#        jupe . nombre: 0
+#        pull . nombre: 0
         chaussure . nombre: 0
-        manteau . nombre: 0
+#        manteau . nombre: 0
         petit article . nombre: 0
         gros article . nombre: 0
       juste des sous-vêtements:
@@ -41,6 +47,7 @@ divers . textile . empreinte:
         sweat . nombre: 0
         robe . nombre: 0
         chemise . nombre: 0
+        jupe . nombre: 0
         pull . nombre: 0
         chaussure . nombre: 0
         manteau . nombre: 0
@@ -53,6 +60,7 @@ divers . textile . empreinte:
         sweat . nombre: 1
         robe . nombre: 1
         chemise . nombre: 0
+        jupe . nombre: 0
         pull . nombre: 1
         chaussure . nombre: 2
         manteau . nombre: 0
@@ -64,6 +72,7 @@ divers . textile . empreinte:
         short . nombre: 2
         sweat . nombre: 2
         robe . nombre: 3
+        jupe . nombre: 1
         chemise . nombre: 2
         pull . nombre: 1
         chaussure . nombre: 3
@@ -74,21 +83,29 @@ divers . textile . empreinte:
   icônes: 👚
   formule:
     somme:
-      - t-shirt
-      - pantalon
-      - short
-      - sweat
-      - robe
-      - chemise
-      - pull
+      - article léger
+      - article épais
+#      - t-shirt
+#      - pantalon
+#      - short
+#      - sweat
+#      - robe
+#      - chemise
+#      - jupe
+#      - pull
       - chaussure
-      - manteau
+#      - manteau
       - petit article
       - gros article
   description: |
-    À vous de nous dire ce que vous avez mis dans vos sacs de shopping cette année, ou dans une année représentative si vous faites rarement les magasins.
-
-    > Si vous achetez un pull tous 2 ans, arrondissez à `1`. Si vous achetez un pull tous les 3 ans, arrondissez à `0`.
+    Nous organisons les achats textiles en 5 catégories :
+      - petit article : sous-vêtement, chaussettes. 
+      - article léger : t-shirt, short, chemise, jupe.
+      - article épais : pantalon, sweat, pull, robe;
+      - gros article: manteau, imperméable, costume, etc.
+      - chaussure : basket, running, etc.
+    
+    À vous de nous dire ce que vous avez donc mis dans vos sacs de shopping cette année, ou dans une année représentative si vous faites rarement les magasins.
 
     Ne renseignez que les produits neufs. Nous excluons du calcul l'achat en friperies, la récupération, l'occasion.
 
@@ -120,6 +137,86 @@ divers . textile . indice de durabilité:
     - 2% “compulsif” : correspond à l’indice ultra fast-fashion soit 0,67
 
     Ce qui donne un vêtement moyen avec un indice de durabilité moyen de 1,16. C'est l'indice que nous utilisons pour calculer les empreintes moyennes de chacun des vêtements listés.
+
+divers . textile . article léger:
+  titre: Article léger
+  icônes: 👕
+  formule: empreinte * nombre
+  description: T-shirt, short, chemise, jupe..
+
+divers . textile . article léger . nombre:
+  question: Nombre d'articles légers achetés sur une année
+  plancher: 0
+  plafond: 30
+  par défaut: 4
+
+divers . textile . article léger . empreinte:
+  formule:
+    variations:
+      - si: métrique = "carbone"
+        alors: empreinte carbone
+      - si: métrique = "eau"
+        alors: empreinte eau
+
+divers . textile . article léger . empreinte carbone:
+  formule:
+    moyenne:
+      - t-shirt . empreinte carbone
+      - chemise . empreinte carbone
+      - short . empreinte carbone
+      - jupe . empreinte carbone
+  unité: kgCO2e
+  note: Facteur d'émission construit pour accéler le test NEAR
+
+divers . textile . article léger . empreinte eau:
+  formule:
+    moyenne:
+      - t-shirt . empreinte eau
+      - chemise . empreinte eau
+      - short . empreinte eau
+      - jupe . empreinte eau
+  unité: l
+  note: Facteur d'émission construit pour accéler le test NEAR
+
+divers . textile . article épais:
+  titre: Article épais
+  icônes: 👕
+  formule: empreinte * nombre
+  description: Pantalon, sweat, pull, robe
+
+divers . textile . article épais . nombre:
+  question: Nombre d'articles épais achetés sur une année
+  plancher: 0
+  plafond: 30
+  par défaut: 4
+
+divers . textile . article épais . empreinte:
+  formule:
+    variations:
+      - si: métrique = "carbone"
+        alors: empreinte carbone
+      - si: métrique = "eau"
+        alors: empreinte eau
+
+divers . textile . article épais . empreinte carbone:
+  formule:
+    moyenne:
+      - pantalon . empreinte carbone
+      - robe . empreinte carbone
+      - sweat . empreinte carbone
+      - pull . empreinte carbone
+  unité: kgCO2e
+  note: Facteur d'émission construit pour accéler le test NEAR
+
+divers . textile . article épais . empreinte eau:
+  formule:
+    moyenne:
+      - pantalon . empreinte eau
+      - robe . empreinte eau
+      - sweat . empreinte eau
+      - pull . empreinte eau
+  unité: l
+  note: Facteur d'émission construit pour accéler le test NEAR
 
 divers . textile . t-shirt:
   icônes: 👕
@@ -291,6 +388,36 @@ divers . textile . chemise . empreinte eau:
   unité: l
   note: Facteur d'émission issu du simulateur textile [Ecobalyse](https://ecobalyse.beta.gouv.fr/#/textile/simulator) en considérant la chemise en coton (majorant par défaut), sans la partie utilisation (eau domestique liée au lavage, comptabilisée par ailleurs dans la partie "eau domestique" du modèle) et fin de vie.
 
+divers . textile . jupe:
+  icônes: 👗☀️
+  formule: empreinte * nombre
+
+divers . textile . jupe . nombre:
+  question: Nombre de jupes achetées sur une année
+  plancher: 0
+  plafond: 20
+  par défaut: 2
+
+divers . textile . jupe . empreinte:
+  formule:
+    variations:
+      - si: métrique = "carbone"
+        alors: empreinte carbone
+      - si: métrique = "eau"
+        alors: empreinte eau
+
+divers . textile . jupe . empreinte carbone:
+  formule: chemise . empreinte carbone * (300 / 250)
+  unité: kgCO2e
+  note: |
+    En attendant de savoir où trouver l'empreinte dans [Ecobalyse](https://ecobalyse.beta.gouv.fr/#/textile/simulator) on repart du FE chemise coton que l'on multiplie par un ratio sur les poids : 250g = chemise coton ; 300g = jupe coton
+
+divers . textile . jupe . empreinte eau:
+  formule: chemise . empreinte eau * (300 / 250)
+  unité: l
+  note: |
+    En attendant de savoir où trouver l'empreinte dans [Ecobalyse](https://ecobalyse.beta.gouv.fr/#/textile/simulator) on repart du FE chemise coton que l'on multiplie par un ratio sur les poids : 250g = chemise coton ; 300g = jupe coton
+
 divers . textile . pull:
   titre: Pull (laine ou acrylique)
   icônes: 🧶
@@ -378,10 +505,10 @@ divers . textile . manteau . empreinte eau:
   note: Facteur d'émission issu du simulateur textile [Ecobalyse](https://ecobalyse.beta.gouv.fr/#/textile/simulator) en considérant le manteau en coton (majorant par défaut), sans la partie utilisation (eau domestique liée au lavage, comptabilisée par ailleurs dans la partie "eau domestique" du modèle) et fin de vie.
 
 divers . textile . petit article:
-  titre: Autre petit article
+  titre: Petit article
   icônes: 🔹
   formule: empreinte * nombre
-  description: Vêtement plutôt léger (chaussettes, sous-vêtements, etc., par opposition à un manteau ou un pull).
+  description: Sous-vêtement, chaussettes.
 
 divers . textile . petit article . nombre:
   question: Nombre de petits articles génériques achetés sur une année
@@ -408,10 +535,10 @@ divers . textile . petit article . empreinte eau:
   note: Facteur d'émission issu du simulateur textile [Ecobalyse](https://ecobalyse.beta.gouv.fr/#/textile/simulator) en considérant la paire de chaussettes en coton (majorant par défaut), sans la partie utilisation (eau domestique liée au lavage, comptabilisée par ailleurs dans la partie "eau domestique" du modèle) et fin de vie.
 
 divers . textile . gros article:
-  titre: Autre gros article
+  titre: Gros article
   icônes: 🔷
   formule: empreinte * nombre
-  description: Vêtement plutôt lourd (veste imperméable, costume, etc., par opposition aux sous-vêtements).
+  description: Manteau, imperméable, costume, etc.
 
 divers . textile . gros article . nombre:
   question: Nombre de gros articles génériques achetés sur une année
@@ -440,15 +567,17 @@ divers . textile . gros article . empreinte eau:
 divers . textile . nombre total:
   formule:
     somme:
-      - t-shirt . nombre
-      - pantalon . nombre
-      - short . nombre
-      - sweat . nombre
-      - robe . nombre
-      - chemise . nombre
-      - pull . nombre
+      - article léger . nombre
+      - article épais . nombre
+#      - t-shirt . nombre
+#      - pantalon . nombre
+#      - short . nombre
+#      - sweat . nombre
+#      - robe . nombre
+#      - chemise . nombre
+#      - pull . nombre
       - chaussure . nombre
-      - manteau . nombre
+#      - manteau . nombre
       - petit article . nombre
       - gros article . nombre
 

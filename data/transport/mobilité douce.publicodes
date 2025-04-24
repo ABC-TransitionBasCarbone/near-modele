@@ -5,12 +5,14 @@ transport . mobilité douce:
     options:
       - marche . présent
       - vélo . présent
+      - trottinette . présent
       - vae . présent
       - autres véhicules à moteur . présent
     suggestions:
       aucun:
         marche . présent: non
         vélo . présent: non
+        trottinette . présent: non
         vae . présent: non
         autres véhicules à moteur . présent: non
   question: Parmi ces modes de déplacement, lesquels utilisez-vous ?
@@ -27,6 +29,7 @@ transport . mobilité douce:
     somme:
       - marche
       - vélo
+      - trottinette
       - vae
       - autres véhicules à moteur
 
@@ -96,9 +99,45 @@ transport . mobilité douce . vélo . durée de vie:
     Hypothèse issue du HBEFA (Manuel des facteurs d'émission pour le transport routier), d'après la documentation de la base empreinte.
     Chiffres tirés de l'étude ADEME de 2019 ["Modélisation et évaluation environnementale de produits de consommation et biens d'équipement"](https://librairie.ademe.fr/dechets-economie-circulaire/127-modelisation-et-evaluation-environnementale-de-produits-de-consommation-et-biens-d-equipement.html)
 
+transport . mobilité douce . trottinette:
+  titre: Trottinette classique
+  applicable si: présent
+  icônes: 🛴🦵
+  formule: construction amortie
+  unité: kgCO2e
+  note: |
+    Nous considérons que **l'usage** du trottinette non électrique a une empreinte nulle.
+
+    Il est toujours possible de lui attribuer l'empreinte du surplus de calories, qui dépend du régime alimentaire.
+
+    Nous avons tous les ingrédients ici pour le faire, mais c'est loin d'être aussi simple. Le surplus d'activité physique est aussi associé à des risques et donc des dépenses de santé bien moindres.
+
+transport . mobilité douce . trottinette . présent:
+  question: Possédez-vous une trottinette "musculaire" (i.e. sans assistance électrique) ?
+  par défaut: non
+
+transport . mobilité douce . trottinette . construction amortie:
+  formule: construction / durée de vie
+  unité: kgCO2e
+
+transport . mobilité douce . trottinette . construction:
+  formule: 62.5
+  unité: kgCO2e
+  note: |
+    La base empreinte ne propose pas de FE pour la trottinette conventionnel. On repart de l'empreinte d'une trottinette électrique 
+    à laquelle on ôte les impacts liés aux composants électroniques, cuivre, LED et batteries (-32%). Pour cela on s'appuie sur
+    l'analyse détaillée des procédés contributeurs (page 50 de l'[étude source](https://librairie.ademe.fr/consommer-autrement/127-modelisation-et-evaluation-environnementale-de-produits-de-consommation-et-biens-d-equipement.html))
+
+transport . mobilité douce . trottinette . durée de vie:
+  formule: 6
+  note: |
+    On majore de 50 % la durée de vie d'une trottinette non électrique. La durée de vie d'une trottinette électrique est issue des
+    hypothèses HBEFA (Manuel des facteurs d'émission pour le transport routier), d'après la documentation de la base empreinte.
+    Chiffres tirés de l'étude ADEME de 2019 ["Modélisation et évaluation environnementale de produits de consommation et biens d'équipement"](https://librairie.ademe.fr/dechets-economie-circulaire/127-modelisation-et-evaluation-environnementale-de-produits-de-consommation-et-biens-d-equipement.html)
+
 transport . mobilité douce . vae:
   titre: Vélo à Assistance Électrique (VAE)
-  icônes: 🚲
+  icônes: 🚲⚡
   applicable si: présent
   formule: empreinte * km + construction amortie
   unité: kgCO2e
@@ -145,7 +184,7 @@ transport . mobilité douce . vae . durée de vie:
 transport . mobilité douce . autres véhicules à moteur:
   titre: Petit véhicule électrique
   description: Trottinette électrique, gyropode, monocycle électrique, hoverboard...
-  icônes: 🛴
+  icônes: 🛴⚡
   applicable si: présent
   formule: empreinte * km + construction amortie
   unité: kgCO2e

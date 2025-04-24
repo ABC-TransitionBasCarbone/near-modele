@@ -273,7 +273,7 @@ logement . eau domestique . hydratation . par jour:
 logement . eau domestique . voiture:
   applicable si:
     toutes ces conditions:
-      - transport . voiture . km > 0
+      - transport . voiture . km2 > 0
       - est défini: transport . voiture . utilisateur
       - une de ces conditions:
           - transport . voiture . utilisateur = 'propriétaire'

@@ -512,7 +512,7 @@ logement . chauffage . bois . présent:
   question: Votre logement est-il chauffé au bois ?
 
 logement . chauffage . bois . type:
-  non applicable si: bois . présent = non
+  applicable si: bois . présent
   titre: type de bois
   question: Quel type de bois utilisez-vous ?
   formule:

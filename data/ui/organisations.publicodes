@@ -19,7 +19,7 @@ ui . organisations . transport . roule en voiture:
   icônes: 🚗
   formule:
     toutes ces conditions:
-      - transport . voiture . km > 0
+      - transport . voiture . km2 > 0
   unité: '%'
 
 ui . organisations . transport . prend l'avion:
@@ -43,7 +43,7 @@ ui . organisations . transport . km en voiture:
   icônes: 🚗
   formule:
     moyenne:
-      - transport . voiture . km
+      - transport . voiture . km2
   unité: km
 
 ui . organisations . transport . voyageurs en voiture:

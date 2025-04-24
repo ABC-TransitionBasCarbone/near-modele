@@ -32,7 +32,6 @@ services sociétaux . question rhétorique:
   description: |
 
     Cette catégorie ne dépend pas de vos réponses. L'empreinte associée est calculée via une approche macro-économique à l'échelle nationale. [En savoir plus](/documentation/services-sociétaux).
-
   par défaut: "'ok'"
   formule:
     une possibilité:
@@ -42,3 +41,298 @@ services sociétaux . question rhétorique:
 
 services sociétaux . question rhétorique . ok:
   titre: OK
+
+services sociétaux . su:
+  formule:
+    variations:
+      - si: 
+          toutes ces conditions:
+            - connaissance = 'oui'
+            - connaissance . choix = 'SU 1'
+        alors: connaissance . choix . SU 1
+      - si: 
+          toutes ces conditions:
+            - connaissance = 'oui'
+            - connaissance . choix = 'SU 2'
+        alors: connaissance . choix . SU 2
+      - si: 
+          toutes ces conditions:
+            - connaissance = 'oui'
+            - connaissance . choix = 'SU 3'
+        alors: connaissance . choix . SU 3
+      - si: 
+          toutes ces conditions:
+            - connaissance = 'oui'
+            - connaissance . choix = 'SU 4'
+        alors: connaissance . choix . SU 4
+      - sinon: calcul su
+  unité: kgCO2e
+  
+services sociétaux . su . connaissance:
+  question: Connaissez-vous la Sphère d'Usage à laquelle vous appartenez ? 
+  description: |
+    Les Sphères d'Usage représentent des groupes d'individu qui partagent des similarités de modes de vie en matière de mobilité, logement, alimentation et consommation au sein de votre quartier.
+  par défaut: non
+
+
+services sociétaux . su . connaissance . choix:
+  question: A quelle Sphère d'Usage appartenez-vous ?
+  applicable si: connaissance = 'oui'
+  formule:
+    une possibilité:
+      choix obligatoire: oui
+      possibilités:
+        - SU 1
+        - SU 2
+        - SU 3
+        - SU 4
+
+services sociétaux . su . connaissance . choix . SU 1:
+  titre: Nom de la SU 1
+  formule: 0.1
+  unité: kgCO2e
+
+services sociétaux . su . connaissance . choix . SU 2:
+  titre: Nom de la SU 2
+  formule: 0.2
+  unité: kgCO2e
+
+services sociétaux . su . connaissance . choix . SU 3:
+  titre: Nom de la SU 3
+  formule: 0.3
+  unité: kgCO2e
+
+services sociétaux . su . connaissance . choix . SU 4:
+  titre: Nom de la SU 4
+  formule: 0.4
+  unité: kgCO2e
+
+services sociétaux . su . calcul su:
+  titre: Calcul des SU
+  applicable si: connaissance = 'non'
+  description: |
+    Les 6 questions suivantes ont pour but de vous attribuer une Sphère d'Usage, c'est-à-dire un groupe dont vous partagez des similarités de modes de vie en matière de mobilité, logement, alimentation et consommation au sein de votre quartier.
+  formule:
+    somme:
+      - 0.0001 * question 1 . conversion
+      - 0.0001 * question 2 . conversion
+      - 0.0001 * question 3 . conversion
+      - 0.0001 * question 4 . conversion
+      - 0.0001 * question 5 . conversion
+      - 0.0001 * question 6 . conversion
+  unité: kgCO2e
+
+services sociétaux . su . calcul su . question 1:
+  question: En accord avec les réponses données précédemment, lors de vos repas, vous mangez de la viande (poulet, bœuf, etc.)... ?
+#  par défaut: "'je ne sais pas'"
+  formule:
+    une possibilité:
+      choix obligatoire: oui
+      possibilités:
+        - faible
+        - moyen
+        - beaucoup
+
+services sociétaux . su . calcul su . question 1 . faible:
+  titre: 0 à 4 repas par semaine (rarement ou jamais)
+services sociétaux . su . calcul su . question 1 . moyen:
+  titre: 5 à 9 repas par semaine (souvent)
+services sociétaux . su . calcul su . question 1 . beaucoup:
+  titre: 10 repas par semaine ou plus (dans presque tous les repas)
+
+services sociétaux . su . calcul su . question 1 . conversion:
+  formule:
+    variations:
+      - si: question 1 = 'faible'
+        alors: 1
+      - si: question 1 = 'moyen'
+        alors: 2
+      - si: question 1 = 'beaucoup'
+        alors: 3
+  description: |
+    On convertit les réponses textuelles en valeur pour pouvoir les sommer et ainsi conserver la réponse utilisateur.
+
+services sociétaux . su . calcul su . question 2:
+  question:  Comment vous déplacez-vous au quotidien ? Si il y en a plusieurs, indiquez votre mode de transport principal, celui avec lequel vous faites le plus de distance au quotidien ?
+  par défaut: "'je ne sais pas'"
+  formule:
+    une possibilité:
+      choix obligatoire: oui
+      possibilités:
+        - tout à fait d'accord
+        - plutôt d'accord
+        - plutôt pas d'accord
+        - pas du tout d'accord
+
+services sociétaux . su . calcul su . question 2 . conversion:
+  formule:
+    variations:
+      - si: question 2 = 'tout à fait d'accord'
+        alors: 1
+      - si: question 2 = 'plutôt d'accord'
+        alors: 2
+      - si: question 2 = 'plutôt pas d'accord'
+        alors: 3
+      - si: question 2 = 'pas du tout d'accord'
+        alors: 4
+      - sinon: 9
+  description: |
+    On convertit les réponses textuelles en valeur pour pouvoir les sommer et ainsi conserver la réponse utilisateur.
+
+services sociétaux . su . calcul su . question 2 . tout à fait d'accord:
+  titre: Tout à fait d'accord
+services sociétaux . su . calcul su . question 2 . plutôt d'accord:
+  titre: Plutôt d'accord
+services sociétaux . su . calcul su . question 2 . plutôt pas d'accord:
+  titre: Plutôt pas d'accord
+services sociétaux . su . calcul su . question 2 . pas du tout d'accord:
+  titre: Pas du tout d'accord
+services sociétaux . su . calcul su . question 2 . je ne sais pas:
+
+services sociétaux . su . calcul su . question 3:
+  question: XXX ?
+  par défaut: "'je ne sais pas'"
+  formule:
+    une possibilité:
+      choix obligatoire: oui
+      possibilités:
+        - tout à fait d'accord
+        - plutôt d'accord
+        - plutôt pas d'accord
+        - pas du tout d'accord
+
+services sociétaux . su . calcul su . question 3 . tout à fait d'accord:
+  titre: Tout à fait d'accord
+services sociétaux . su . calcul su . question 3 . plutôt d'accord:
+  titre: Plutôt d'accord
+services sociétaux . su . calcul su . question 3 . plutôt pas d'accord:
+  titre: Plutôt pas d'accord
+services sociétaux . su . calcul su . question 3 . pas du tout d'accord:
+  titre: Pas du tout d'accord
+services sociétaux . su . calcul su . question 3 . je ne sais pas:
+
+services sociétaux . su . calcul su . question 3 . conversion:
+  formule:
+    variations:
+      - si: question 3 = 'tout à fait d'accord'
+        alors: 1
+      - si: question 3 = 'plutôt d'accord'
+        alors: 2
+      - si: question 3 = 'plutôt pas d'accord'
+        alors: 3
+      - si: question 3 = 'pas du tout d'accord'
+        alors: 4
+      - sinon: 9
+  description: |
+    On convertit les réponses textuelles en valeur pour pouvoir les sommer et ainsi conserver la réponse utilisateur.
+
+services sociétaux . su . calcul su . question 4:
+  question: XXX ?
+  par défaut: "'je ne sais pas'"
+  formule:
+    une possibilité:
+      choix obligatoire: oui
+      possibilités:
+        - tout à fait d'accord
+        - plutôt d'accord
+        - plutôt pas d'accord
+        - pas du tout d'accord
+
+services sociétaux . su . calcul su . question 4 . tout à fait d'accord:
+  titre: Tout à fait d'accord
+services sociétaux . su . calcul su . question 4 . plutôt d'accord:
+  titre: Plutôt d'accord
+services sociétaux . su . calcul su . question 4 . plutôt pas d'accord:
+  titre: Plutôt pas d'accord
+services sociétaux . su . calcul su . question 4 . pas du tout d'accord:
+  titre: Pas du tout d'accord
+services sociétaux . su . calcul su . question 4 . je ne sais pas:
+
+services sociétaux . su . calcul su . question 4 . conversion:
+  formule:
+    variations:
+      - si: question 4 = 'tout à fait d'accord'
+        alors: 1
+      - si: question 4 = 'plutôt d'accord'
+        alors: 2
+      - si: question 4 = 'plutôt pas d'accord'
+        alors: 3
+      - si: question 4 = 'pas du tout d'accord'
+        alors: 4
+      - sinon: 9
+  description: |
+    On convertit les réponses textuelles en valeur pour pouvoir les sommer et ainsi conserver la réponse utilisateur.
+
+services sociétaux . su . calcul su . question 5:
+  question: XXX ?
+  par défaut: "'je ne sais pas'"
+  formule:
+    une possibilité:
+      choix obligatoire: oui
+      possibilités:
+        - tout à fait d'accord
+        - plutôt d'accord
+        - plutôt pas d'accord
+        - pas du tout d'accord
+
+services sociétaux . su . calcul su . question 5 . tout à fait d'accord:
+  titre: Tout à fait d'accord
+services sociétaux . su . calcul su . question 5 . plutôt d'accord:
+  titre: Plutôt d'accord
+services sociétaux . su . calcul su . question 5 . plutôt pas d'accord:
+  titre: Plutôt pas d'accord
+services sociétaux . su . calcul su . question 5 . pas du tout d'accord:
+  titre: Pas du tout d'accord
+services sociétaux . su . calcul su . question 5 . je ne sais pas:
+
+services sociétaux . su . calcul su . question 5 . conversion:
+  formule:
+    variations:
+      - si: question 5 = 'tout à fait d'accord'
+        alors: 1
+      - si: question 5 = 'plutôt d'accord'
+        alors: 2
+      - si: question 5 = 'plutôt pas d'accord'
+        alors: 3
+      - si: question 5 = 'pas du tout d'accord'
+        alors: 4
+      - sinon: 9
+  description: |
+    On convertit les réponses textuelles en valeur pour pouvoir les sommer et ainsi conserver la réponse utilisateur.
+
+services sociétaux . su . calcul su . question 6:
+  question: XXX ?
+  par défaut: "'je ne sais pas'"
+  formule:
+    une possibilité:
+      choix obligatoire: oui
+      possibilités:
+        - tout à fait d'accord
+        - plutôt d'accord
+        - plutôt pas d'accord
+        - pas du tout d'accord
+
+services sociétaux . su . calcul su . question 6 . tout à fait d'accord:
+  titre: Tout à fait d'accord
+services sociétaux . su . calcul su . question 6 . plutôt d'accord:
+  titre: Plutôt d'accord
+services sociétaux . su . calcul su . question 6 . plutôt pas d'accord:
+  titre: Plutôt pas d'accord
+services sociétaux . su . calcul su . question 6 . pas du tout d'accord:
+  titre: Pas du tout d'accord
+services sociétaux . su . calcul su . question 6 . je ne sais pas:
+
+services sociétaux . su . calcul su . question 6 . conversion:
+  formule:
+    variations:
+      - si: question 6 = 'tout à fait d'accord'
+        alors: 1
+      - si: question 6 = 'plutôt d'accord'
+        alors: 2
+      - si: question 6 = 'plutôt pas d'accord'
+        alors: 3
+      - si: question 6 = 'pas du tout d'accord'
+        alors: 4
+      - sinon: 9
+  description: |
+    On convertit les réponses textuelles en valeur pour pouvoir les sommer et ainsi conserver la réponse utilisateur.

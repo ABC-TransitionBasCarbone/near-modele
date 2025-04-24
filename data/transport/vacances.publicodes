@@ -6,14 +6,19 @@ transport . vacances:
       - caravane . propriétaire
       - camping car . propriétaire
       - van . propriétaire
+      - location véhicule . propriétaire
+      - croisière . propriétaire
       - bateau plaisance . propriétaire
     suggestions:
       aucun:
         caravane . propriétaire: non
         camping car . propriétaire: non
         van . propriétaire: non
+        location véhicule . propriétaire: non
+        croisière . propriétaire: non
         bateau plaisance . propriétaire: non
-  question: Quels véhicules possédez-vous pour vos loisirs (hors véhicule principal) ?
+#  question: Quels véhicules possédez-vous pour vos loisirs (hors véhicule principal) ?
+  question: Quels véhicules (hors véhicule principal) et modes de voyage possédez/utilisez-vous pour vos vacances, weekends et loisirs ?
   icônes: 🏖
   description: |
     On vous propose ici de sélectionner ce que vous possédez pour vos vacances. La catégorie "van aménagé" comprend les fourgons et camionettes aménagés.
@@ -26,6 +31,8 @@ transport . vacances:
       - caravane
       - camping car
       - van
+      - location véhicule
+      - croisière
       - bateau plaisance
 
 # @Clément: pour l'instant, nous gardons la valeur par défaut pour `transport . vacances` à false pour des raison de complexité :
@@ -50,11 +57,11 @@ transport . vacances:
 #       - sinon: non
 
 transport . vacances . caravane:
-  titre: Caravane
+  titre: Je possède une caravane
   icônes: 🚎
   applicable si:
     toutes ces conditions:
-      - transport . voiture . km > 0
+      - transport . voiture . km2 > 0
       - propriétaire
   formule: usage réel + construction amortie
   note: |
@@ -83,7 +90,7 @@ transport . vacances . caravane . distance:
   question: Quelle distance parcourez-vous à l'année en caravane ?
   par défaut: 6250
   description: |
-    Attention, pour faire ces km en caravane, vous les avez faits avec une voiture : vous devez donc les avoir inclus dans les km voiture (une question à laquelle vous avez probablement déjà répondu).
+    Attention, pour faire ces km en caravane, vous les avez faits avec une voiture : vous devez donc les avoir inclus dans les km réalisés en voiture pour vos vacances et weekend.
 
     💡 Cette question nous sert à appliquer la surconsommation du tractage de votre caravane à une partie de vos km en voiture.
   note: D'après la fédération des campeurs, caravaniers et camping-caristes, un camping-cariste fait en moyenne de 5000 à 7500 km par an ([source](https://ffcc.fr/chiffres-cles/))
@@ -117,7 +124,7 @@ transport . vacances . caravane . pourcentage caravaniers:
   note: Il s'est vendu moitié moins de caravanes en France en 2021 que de camping-cars. On peut supposer qu'il y a moitié moins de caravaniers que de camping-caristes ([source](https://ffcc.fr/chiffres-cles/)).
 
 transport . vacances . camping car:
-  titre: Camping Car
+  titre: Je possède un camping Car
   icônes: 🚐
   applicable si:
     toutes ces conditions:
@@ -159,7 +166,8 @@ transport . vacances . camping car . km:
   applicable si: propriétaire
   question: Quelle distance parcourez-vous à l'année en camping-car ?
   description: |
-    Attention, ces km de camping car ne doivent pas être renseignés dans les km voiture (une question à laquelle vous avez probablement déjà répondu), ce sont deux questions différentes.
+    **Attention !** Assurez vous de ne pas avoir renseigné ces km lors de la question sur les trajets réalisés en voiture annuellement pour les vacances et weekend. Si c'est ce que vous avez fait, 
+    revenez en arrière pour modifier vos réponses et renseignez ici les km effectués avec votre camping-car.
   par défaut: 8869
   plancher: 0
   plafond: 99999
@@ -197,7 +205,7 @@ transport . vacances . camping car . pourcentage camping-caristes:
   note: Il existe 1,4 millions de camping-caristes en France, dont 77% roulent en camping-car (23% en van / fourgon aménagé) [selon la Fédération des campeurs, caravaniers et camping-caristes](https://ffcc.fr/chiffres-cles/)
 
 transport . vacances . van:
-  titre: Van
+  titre: Je possède un van
   icônes: 🚐
   applicable si: propriétaire
   formule: usage réel + construction amortie
@@ -220,7 +228,8 @@ transport . vacances . van . km:
   applicable si: propriétaire
   question: Quelle distance parcourez-vous à l'année en van ?
   description: |
-    Attention, ces km en van ne doivent pas être renseignés dans les km voiture (une question à laquelle vous avez probablement déjà répondu), ce sont deux questions différentes.
+    **Attention !** Assurez vous de ne pas avoir renseigné ces km lors de la question sur les trajets réalisés en voiture annuellement pour les vacances et weekend. Si c'est ce que vous avez fait, 
+    revenez en arrière pour modifier vos réponses et renseignez ici les km effectués avec votre van.
   par défaut: 9310
   unité: km
   plancher: 0
@@ -270,6 +279,167 @@ transport . vacances . van . durée de vie:
 transport . vacances . van . pourcentage usagers van:
   formule: 1400000 * 23% / population
   note: Il existe 1,4 millions de camping-caristes en France, dont 23% roulent en van / fourgon aménagé [selon la Fédération des campeurs, caravaniers et camping-caristes](https://ffcc.fr/chiffres-cles/)
+
+transport . vacances . location véhicule:
+  titre: Je ne possède pas mais je loue parfois un van/camping-car
+  icônes: 🚐🤝
+  applicable si: propriétaire
+  formule: usage réel + construction au km
+
+transport . vacances . location véhicule . propriétaire:
+  question: Louez-vous un van et/ou camping ?
+  par défaut: non
+
+transport . vacances . location véhicule . usage réel:
+  titre: Usage location
+  formule: usage / passagers
+  unité: kgCO2e
+
+transport . vacances . location véhicule . usage:
+  formule: location véhicule . km * empreinte au kilomètre
+  unité: kgCO2e
+
+transport . vacances . location véhicule . km:
+  ordre: 4
+  titre: km en van loué
+  applicable si: propriétaire
+  question: Quelle distance parcourez-vous à l'année avec un van/camping-car de location ?
+  description: |
+    **Attention !** Assurez vous de ne pas avoir renseigné ces km lors de la question sur les trajets réalisés en voiture annuellement pour les vacances et weekend. Si c'est ce que vous avez fait, 
+    revenez en arrière pour modifier vos réponses et renseignez ici les km effectués avec un van/camping-car de location.
+  suggestions:
+    Paris ⇄ Brest: 1200.001
+    Bordeaux ⇄ Barcelone: 1300.001
+    Lille ⇄ Toulouse: 1800.001
+    Grenoble ⇄ Turin: 500.001
+  par défaut: 2000
+  unité: km
+  plancher: 0
+  note: Valeur par défaut estimée à partir d'offres de location intégrant un [forfait de 200 km/jour](https://www.reve-en-van.fr/location-de-van-amenage/tarifs/) et en considérant 10 jours de location.
+
+transport . vacances . location véhicule . empreinte au kilomètre:
+  titre: empreinte au km camping-car
+  formule: consommation au kilomètre * empreinte au litre
+  unité: kgCO2e/km
+
+transport . vacances . location véhicule . consommation au kilomètre:
+  formule: consommation aux 100 / 100 km/centkm
+  unité: l/km
+
+transport . vacances . location véhicule . consommation aux 100:
+  formule: 9
+  unité: l/centkm
+  note: |
+    On choisi de ne pas poser cette question et d'appliquer directement la valeur par défaut qui considère une consommation de [9 l au 100 km](https://www.wikicampers.fr/blog/van-vs-fourgon-lequel-choisir/)
+
+transport . vacances . location véhicule . empreinte au litre:
+  formule: 2.7
+  unité: kgCO2e/l
+  note: |
+    Source : [Base Carbone](https://bilans-ges.ademe.fr/fr/basecarbone/donnees-consulter/liste-element/categorie/405)
+
+transport . vacances . location véhicule . construction au km:
+  titre: Construction du van
+  formule: (barème construction * amortissement) / passagers
+  unité: kgCO2e
+
+transport . vacances . location véhicule . passagers:
+  ordre: 4
+  titre: Nombre de passagers
+  applicable si: propriétaire
+  question: Combien d'occupants (en vous incluant) étaient présents lors de vos trajets en van/camping-car de location en 2023 ?
+  description: |
+    Essayez de renseigner un nombre d'occupants (vous inclus) le plus représentatif des trajets effectués.
+  par défaut: logement . habitants
+  plancher: 1
+
+transport . vacances . location véhicule . barème construction:
+  formule: voiture . barème construction . barème thermique . empreinte par kg * location véhicule . poids
+  unité: kgCO2e
+
+transport . vacances . location véhicule . poids:
+  formule: 3000
+  unité: kg
+  note: Le poids d'un van aménagé varie entre 2,6 et 3,5 tonnes (au-delà de 3,5 tonnes, le véhicule change de PTAC pour devenir un "poids lourd", impliquant l'utilisation d'un autre permis)
+
+transport . vacances . location véhicule . amortissement:
+  formule: 1 / durée de vie en km
+
+transport . vacances . location véhicule . durée de vie en km:
+  formule: 400000
+  unité: km
+  note: |
+    A la lecture de forums de van-lifer/camping-caristes les durées de vie semblent aller de 250 000 km à 500 000 km voire plus parfois. Il est raisonnable
+    de penser que les vans de location sont bien entretenus et nous fixons donc la durée de vie à 400 000 km.
+
+transport . vacances . croisière:
+  titre: Je fais des croisières
+  description: Croisière en pleine mer hors ferry
+  icônes: 🚢
+  formule:
+    variations:
+      - si:
+          est défini: propriétaire
+        alors: empreinte
+      - sinon: empreinte moyenne
+  unité: kgCO2e
+
+transport . vacances . croisière . propriétaire:
+  question: Faites-vous des croisières ?
+  par défaut: non
+
+#transport . vacances . croisière . usager:
+#  question: Avez-vous réalisé une ou plusieurs croisières en 2023 ?
+#  description: |
+#    Renseignez ici seulement des croisières en pleine mer (océan ou mer). Les croisières en eau fluviale ne sont pas à prendre
+#    en compte.
+
+transport . vacances . croisière . empreinte:
+#  applicable si: usager
+#  formule: jours * empreinte par jour
+  formule:
+    variations:
+      - si: propriétaire
+        alors: jours * empreinte par jour
+      - sinon: 0
+
+transport . vacances . croisière . jours:
+  titre: Jours de croisière
+  applicable si: propriétaire
+  question: Combien de jours avez-vous voyagé en croisière en 2023 ?
+  par défaut: durée moyenne croisière
+  plancher: 0
+  unité: jour
+
+transport . vacances . croisière . empreinte par jour:
+  formule: 1319 / 7 # Je n'utilise pas la variable commun . jours par semaine car l'unité exprimée en jour/semaine pose problème
+  unité: kgCO2e/jour  
+  note: |
+    Empreinte par semaine ramenée par jour et tirée de cette (étude)[https://www.researchgate.net/publication/280008702_A_Life_Cycle_Assessment_of_the_Environmental_Impact_of_Cruise_Holidays]
+
+transport . vacances . croisière . empreinte moyenne:
+  valeur: croisière . empreinte
+  contexte:
+    propriétaire: oui
+    jours: jours moyens par français
+
+transport . vacances . croisière . jours moyens par français:
+  formule: durée moyenne croisière * (nombre croisièristes français / population 2024)
+  unité: jour
+  note: |
+    En 2023, 325000 français ont réalisé une croisière d'une durée moyenne de 7 jours. Soit 0,3 jours en moyenne par Français.
+
+transport . vacances . croisière . durée moyenne croisière:
+  formule: 7
+  unité: jour
+  note: |
+    La grande majorité des croisières réalisées par des passagers français est de 7 jours comme indiqué [ici](https://fr.statista.com/themes/3644/les-croisieres/#topicOverview) et [là](https://fr.statista.com/statistiques/1025163/part-passagers-francais-dans-l-industrie-mondiale-des-croisieres-duree-sejour/)
+
+transport . vacances . croisière . nombre croisièristes français:
+  formule: 325000
+  note: |
+    Chiffre de 2022 repris de cette[source](https://fr.statista.com/themes/3644/les-croisieres/#topicOverview)
+    Nous faisons l'hypothèse que le nombre de croisièristes en 2023 est égale à celui de 2022.
 
 transport . vacances . bateau plaisance:
   titre: Bateau de plaisance

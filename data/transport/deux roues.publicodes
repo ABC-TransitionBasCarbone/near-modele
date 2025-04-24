@@ -78,8 +78,13 @@ transport . deux roues . empreinte au km:
     variations:
       - si: type = 'scooter thermique'
         alors: 0.0763 kgCO2e/km
+      - si:
+          toutes ces conditions:
+            - type = 'scooter électrique'
+            - est défini: type . scooter électrique . propriétaire
+        alors: 0.01 kgCO2e/km
       - si: type = 'scooter électrique'
-        alors: 0.030 kgCO2e/km
+        alors: 0.091 kgCO2e/km
       - si: type = 'moto inf 250'
         alors: 0.0763 kgCO2e/km
       - si: type = 'moto sup 250'
@@ -118,3 +123,8 @@ transport . deux roues . nombre deux roues circulation:
 
 transport . deux roues . pourcentage motards:
   formule: nombre deux roues circulation / population
+
+transport . deux roues . type . scooter électrique . propriétaire:
+  applicable si: deux roues . type = 'scooter électrique'
+  question: Etes-vous propriétaire du scooter électrique que vous utilisez ?
+  description: Répondez oui si le scooter vous appartient et non si vous faites de "l'autopartage"
