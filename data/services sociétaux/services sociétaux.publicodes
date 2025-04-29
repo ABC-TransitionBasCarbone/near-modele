@@ -45,56 +45,106 @@ services sociétaux . question rhétorique . ok:
 
 services sociétaux . su:
   applicable si: services sociétaux . question rhétorique = 'ok'
-  formule:
-    variations:
-      - si: connaissance . choix = 'SU 1'
-        alors: connaissance . choix . SU 1
-      - si: connaissance . choix = 'SU 2'
-        alors: connaissance . choix . SU 2
-      - si: connaissance . choix = 'SU 3'
-        alors: connaissance . choix . SU 3
-      - si: connaissance . choix = 'SU 4'
-        alors: connaissance . choix . SU 4
-      - sinon: calcul su
+  formule: calcul su
   unité: kgCO2e
-  
-services sociétaux . su . connaissance:
-  applicable si: services sociétaux . question rhétorique = 'ok'
-  question: Connaissez-vous la Sphère d'Usage à laquelle vous appartenez ? 
-  description: |
-    Les Sphères d'Usage représentent des groupes d'individu qui partagent des similarités de modes de vie en matière de mobilité, logement, alimentation et consommation au sein de votre quartier.
-
-services sociétaux . su . connaissance . choix:
-  question: A quelle Sphère d'Usage appartenez-vous ?
-  par défaut: SU 1
-  formule:
-    une possibilité:
-      choix obligatoire: oui
-      possibilités:
-        - SU 1
-        - SU 2
-        - SU 3
-        - SU 4
-
-services sociétaux . su . connaissance . choix . SU 1:
-  titre: Nom de la SU 1
-  formule: 0.1
-  unité: kgCO2e
-
-services sociétaux . su . connaissance . choix . SU 2:
-  titre: Nom de la SU 2
-  formule: 0.2
-  unité: kgCO2e
-
-services sociétaux . su . connaissance . choix . SU 3:
-  titre: Nom de la SU 3
-  formule: 0.3
-  unité: kgCO2e
-
-services sociétaux . su . connaissance . choix . SU 4:
-  titre: Nom de la SU 4
-  formule: 0.4
-  unité: kgCO2e
+#  formule: 
+#    variations:
+#      - si: connaissance su
+#        alors: choix su
+#      - sinon: calcul su
+###
+#    variations:
+#      - si: connaissance . choix = 'SU 1'
+#        alors: connaissance . choix . SU 1
+#      - si: connaissance . choix = 'SU 2'
+#        alors: connaissance . choix . SU 2
+#      - si: connaissance . choix = 'SU 3'
+#        alors: connaissance . choix . SU 3
+#      - si: connaissance . choix = 'SU 4'
+#        alors: connaissance . choix . SU 4
+#      - sinon: calcul su
+#  unité: kgCO2e
+#  
+#services sociétaux . connaissance su:
+#  applicable si: services sociétaux . question rhétorique = 'ok'
+#  question: Connaissez-vous la Sphère d'Usage à laquelle vous appartenez ? 
+#  description: |
+#    Les Sphères d'Usage représentent des groupes d'individu qui partagent des similarités de modes de vie en matière de mobilité, logement, alimentation et consommation au sein de votre quartier.
+#
+#### Essai 1 pour choix SU
+#services sociétaux . su . choix su:
+#  applicable si: connaissance su
+#  formule:
+#    variations:
+#      - si: choix . SU 1
+#        alors: 0.1
+#      - si: choix . SU 2
+#        alors: 0.2
+#      - si: choix . SU 3
+#        alors: 0.3
+#  unité: kgCO2e
+#
+#services sociétaux . su . choix su . choix:
+#  applicable si: connaissance su
+#  question: A quelle Sphère d'Usage appartenez-vous ?
+#  par défaut: SU 1
+#  formule:
+#    une possibilité:
+#      choix obligatoire: oui
+#      possibilités:
+#        - SU 1
+#        - SU 2
+#        - SU 3
+#
+#services sociétaux . su . choix su . choix . SU 1:
+#  titre: Nom de la SU 1
+##  formule: 0.1
+##  unité: kgCO2e
+#
+#services sociétaux . su . choix su . choix . SU 2:
+#  titre: Nom de la SU 2
+##  formule: 0.2
+##  unité: kgCO2e
+#
+#services sociétaux . su . choix su . choix . SU 3:
+#  titre: Nom de la SU 3
+##  formule: 0.3
+##  unité: kgCO2e
+#### Fin essai 1 pour choix SU
+#
+#### Essai 2 pour choix SU
+#services sociétaux . su . connaissance . choix:
+#  question: A quelle Sphère d'Usage appartenez-vous ?
+#  par défaut: SU 1
+#  formule:
+#    une possibilité:
+#      choix obligatoire: oui
+#      possibilités:
+#        - SU 1
+#        - SU 2
+#        - SU 3
+#        - SU 4
+#
+#services sociétaux . su . connaissance . choix . SU 1:
+#  titre: Nom de la SU 1
+#  formule: 0.1
+#  unité: kgCO2e
+#
+#services sociétaux . su . connaissance . choix . SU 2:
+#  titre: Nom de la SU 2
+#  formule: 0.2
+#  unité: kgCO2e
+#
+#services sociétaux . su . connaissance . choix . SU 3:
+#  titre: Nom de la SU 3
+#  formule: 0.3
+#  unité: kgCO2e
+#
+#services sociétaux . su . connaissance . choix . SU 4:
+#  titre: Nom de la SU 4
+#  formule: 0.4
+#  unité: kgCO2e
+#### Fin essai 2 pour choix SU
 
 services sociétaux . su . calcul su:
   titre: Calcul des SU
@@ -122,6 +172,22 @@ services sociétaux . su . calcul su . question 1:
         - moyen
         - beaucoup
 
+#### Si on choisi de prendre en compte les infos du test NGC
+#services sociétaux . su . calcul su . question 1:
+##  question: En accord avec les réponses données précédemment, lors de vos repas, vous mangez de la viande (poulet, bœuf, etc.)... ?
+##  par défaut: "'je ne sais pas'"
+#  formule:
+#    variations:
+#      - si: (alimentation . plats . viande blanche . nombre + alimentation . plats . viande rouge . nombre) >= 10
+#        alors: beaucoup
+#      - si:
+#          toutes ces conditions:
+#            - (alimentation . plats . viande blanche . nombre + alimentation . plats . viande rouge . nombre) < 10
+#            - (alimentation . plats . viande blanche . nombre + alimentation . plats . viande rouge . nombre) >= 5
+#        alors: moyen
+#      - si: (alimentation . plats . viande blanche . nombre + alimentation . plats . viande rouge . nombre) < 5
+#        alors: faible
+
 services sociétaux . su . calcul su . question 1 . faible:
   titre: 0 à 4 repas par semaine (rarement ou jamais)
 services sociétaux . su . calcul su . question 1 . moyen:
@@ -142,181 +208,188 @@ services sociétaux . su . calcul su . question 1 . conversion:
     On convertit les réponses textuelles en valeur pour pouvoir les sommer et ainsi conserver la réponse utilisateur.
 
 services sociétaux . su . calcul su . question 2:
-  question:  Comment vous déplacez-vous au quotidien ? Si il y en a plusieurs, indiquez votre mode de transport principal, celui avec lequel vous faites le plus de distance au quotidien ?
+  question: Comment vous déplacez-vous au quotidien ? 
+  description: |
+    Si il y en a plusieurs, indiquez votre mode de transport principal, celui avec lequel vous faites le plus de distance au quotidien ?
   formule:
     une possibilité:
       choix obligatoire: oui
       possibilités:
-        - tout à fait d'accord
-        - plutôt d'accord
-        - plutôt pas d'accord
-        - pas du tout d'accord
+        - voiture
+        - transports en commun
+        - marche vélo trottinette
 
 services sociétaux . su . calcul su . question 2 . conversion:
   formule:
     variations:
-      - si: question 2 = 'tout à fait d'accord'
+      - si: question 2 = 'voiture'
         alors: 1
-      - si: question 2 = 'plutôt d'accord'
+      - si: question 2 = 'transports en commun'
         alors: 2
-      - si: question 2 = 'plutôt pas d'accord'
+      - si: question 2 = 'marche vélo trottinette'
         alors: 3
-      - si: question 2 = 'pas du tout d'accord'
-        alors: 4
-      - sinon: 9
   description: |
     On convertit les réponses textuelles en valeur pour pouvoir les sommer et ainsi conserver la réponse utilisateur.
 
-services sociétaux . su . calcul su . question 2 . tout à fait d'accord:
-  titre: Tout à fait d'accord
-services sociétaux . su . calcul su . question 2 . plutôt d'accord:
-  titre: Plutôt d'accord
-services sociétaux . su . calcul su . question 2 . plutôt pas d'accord:
-  titre: Plutôt pas d'accord
-services sociétaux . su . calcul su . question 2 . pas du tout d'accord:
-  titre: Pas du tout d'accord
-services sociétaux . su . calcul su . question 2 . je ne sais pas:
+services sociétaux . su . calcul su . question 2 . voiture:
+  titre: Voiture
+services sociétaux . su . calcul su . question 2 . transports en commun:
+  titre: Transports en commun
+services sociétaux . su . calcul su . question 2 . marche vélo trottinette:
+  titre: Marche, vélo ou trottinette
 
 services sociétaux . su . calcul su . question 3:
-  question: XXX ?
+  question: En dehors du temps de travail, combien de temps passez vous devant les écrans (téléphone, ordinateur, TV...) ?
   formule:
     une possibilité:
       choix obligatoire: oui
       possibilités:
-        - tout à fait d'accord
-        - plutôt d'accord
-        - plutôt pas d'accord
-        - pas du tout d'accord
+        - faible
+        - moyen
+        - beaucoup
 
-services sociétaux . su . calcul su . question 3 . tout à fait d'accord:
-  titre: Tout à fait d'accord
-services sociétaux . su . calcul su . question 3 . plutôt d'accord:
-  titre: Plutôt d'accord
-services sociétaux . su . calcul su . question 3 . plutôt pas d'accord:
-  titre: Plutôt pas d'accord
-services sociétaux . su . calcul su . question 3 . pas du tout d'accord:
-  titre: Pas du tout d'accord
-services sociétaux . su . calcul su . question 3 . je ne sais pas:
+#### Si on choisi de prendre en compte les infos du test NGC
+#services sociétaux . su . calcul su . question 3:
+##  question: Combien de temps passez vous devant les écrans : téléphone, ordinateur, TV... (en dehors du travail) ?
+#  formule:
+#    variations:
+#      - si: divers . numérique . internet . durée journalière > 4
+#        alors: beaucoup
+#      - si:
+#          toutes ces conditions:
+#            - divers . numérique . internet . durée journalière < 4
+#            - divers . numérique . internet . durée journalière >= 2
+#        alors: moyen
+#      - si: divers . numérique . internet . durée journalière < 2
+#        alors: faible
+
+services sociétaux . su . calcul su . question 3 . faible:
+  titre: Un peu (mails, bureautique, peu de streaming ou de jeux vidéo, moins de 2h par jour)
+services sociétaux . su . calcul su . question 3 . moyen:
+  titre: Moyennement (usages variés avec entre 2 et 4 heures par jour)
+services sociétaux . su . calcul su . question 3 . beaucoup:
+  titre: Beaucoup (usages intensifs avec plus de 4 heures par jour)
 
 services sociétaux . su . calcul su . question 3 . conversion:
   formule:
     variations:
-      - si: question 3 = 'tout à fait d'accord'
+      - si: question 3 = 'faible'
         alors: 1
-      - si: question 3 = 'plutôt d'accord'
+      - si: question 3 = 'moyen'
         alors: 2
-      - si: question 3 = 'plutôt pas d'accord'
+      - si: question 3 = 'beaucoup'
         alors: 3
-      - si: question 3 = 'pas du tout d'accord'
-        alors: 4
-      - sinon: 9
   description: |
     On convertit les réponses textuelles en valeur pour pouvoir les sommer et ainsi conserver la réponse utilisateur.
 
 services sociétaux . su . calcul su . question 4:
-  question: XXX ?
+  question: Quand vous avez besoin d’un objet (vêtements, électronique, mobilier, etc.), vous choisissez…
   formule:
     une possibilité:
       choix obligatoire: oui
       possibilités:
-        - tout à fait d'accord
-        - plutôt d'accord
-        - plutôt pas d'accord
-        - pas du tout d'accord
+        - priorité neuf
+        - mélange
+        - priorité occasion
 
-services sociétaux . su . calcul su . question 4 . tout à fait d'accord:
-  titre: Tout à fait d'accord
-services sociétaux . su . calcul su . question 4 . plutôt d'accord:
-  titre: Plutôt d'accord
-services sociétaux . su . calcul su . question 4 . plutôt pas d'accord:
-  titre: Plutôt pas d'accord
-services sociétaux . su . calcul su . question 4 . pas du tout d'accord:
-  titre: Pas du tout d'accord
-services sociétaux . su . calcul su . question 4 . je ne sais pas:
+services sociétaux . su . calcul su . question 4 . priorité neuf:
+  titre: …le neuf en priorité (même si l'occasion est disponible)
+services sociétaux . su . calcul su . question 4 . mélange:
+  titre: …un mélange entre neuf et occasion (selon la disponibilité ou le type de produit)
+services sociétaux . su . calcul su . question 4 . priorité occasion:
+  titre: …l’occasion en priorité (neuf seulement en dernier recours)
 
 services sociétaux . su . calcul su . question 4 . conversion:
   formule:
     variations:
-      - si: question 4 = 'tout à fait d'accord'
+      - si: question 4 = 'priorité neuf'
         alors: 1
-      - si: question 4 = 'plutôt d'accord'
+      - si: question 4 = 'mélange'
         alors: 2
-      - si: question 4 = 'plutôt pas d'accord'
+      - si: question 4 = 'priorité occasion'
         alors: 3
-      - si: question 4 = 'pas du tout d'accord'
-        alors: 4
-      - sinon: 9
   description: |
     On convertit les réponses textuelles en valeur pour pouvoir les sommer et ainsi conserver la réponse utilisateur.
 
 services sociétaux . su . calcul su . question 5:
-  question: XXX ?
+  question: En moyenne, combien de vols en avion faites-vous par an ?
+  description: |
+    Si vos trajets en avion varient beaucoup d'une année à l'autre, essayez de faire la moyenne sur les 3 dernières années. Par exemple : si vous avez fait 4 vols en 2023, et 0 en 2024, vous pouvez inscrire 1 à 3 vols.
   formule:
     une possibilité:
       choix obligatoire: oui
       possibilités:
-        - tout à fait d'accord
-        - plutôt d'accord
-        - plutôt pas d'accord
-        - pas du tout d'accord
+        - faible
+        - moyen
+        - beaucoup
 
-services sociétaux . su . calcul su . question 5 . tout à fait d'accord:
-  titre: Tout à fait d'accord
-services sociétaux . su . calcul su . question 5 . plutôt d'accord:
-  titre: Plutôt d'accord
-services sociétaux . su . calcul su . question 5 . plutôt pas d'accord:
-  titre: Plutôt pas d'accord
-services sociétaux . su . calcul su . question 5 . pas du tout d'accord:
-  titre: Pas du tout d'accord
-services sociétaux . su . calcul su . question 5 . je ne sais pas:
+services sociétaux . su . calcul su . question 5 . faible:
+  titre: Moins d'1 vol par an
+services sociétaux . su . calcul su . question 5 . moyen:
+  titre: 1 à 3 vols
+services sociétaux . su . calcul su . question 5 . beaucoup:
+  titre: Plus de 3 vols
 
 services sociétaux . su . calcul su . question 5 . conversion:
   formule:
     variations:
-      - si: question 5 = 'tout à fait d'accord'
+      - si: question 5 = 'faible'
         alors: 1
-      - si: question 5 = 'plutôt d'accord'
+      - si: question 5 = 'moyen'
         alors: 2
-      - si: question 5 = 'plutôt pas d'accord'
+      - si: question 5 = 'beaucoup'
         alors: 3
-      - si: question 5 = 'pas du tout d'accord'
-        alors: 4
-      - sinon: 9
   description: |
     On convertit les réponses textuelles en valeur pour pouvoir les sommer et ainsi conserver la réponse utilisateur.
 
 services sociétaux . su . calcul su . question 6:
-  question: XXX ?
+  question: Comment votre logement est chauffé ?
+  description: |
+    Si vous ne connaissez pas le mode de chauffage, sélectionnez la réponse première réponse (Électricité, réseau de chaleur ou pompe à chaleur), sauf si quelqu'un vient régulièrement faire un relevé du gaz chez vous, auquel cas sélectionnez la réponse Gaz.
   formule:
     une possibilité:
       choix obligatoire: oui
       possibilités:
-        - tout à fait d'accord
-        - plutôt d'accord
-        - plutôt pas d'accord
-        - pas du tout d'accord
+        - écologique
+        - gaz
+        - fioul
 
-services sociétaux . su . calcul su . question 6 . tout à fait d'accord:
-  titre: Tout à fait d'accord
-services sociétaux . su . calcul su . question 6 . plutôt d'accord:
-  titre: Plutôt d'accord
-services sociétaux . su . calcul su . question 6 . plutôt pas d'accord:
-  titre: Plutôt pas d'accord
-services sociétaux . su . calcul su . question 6 . pas du tout d'accord:
-  titre: Pas du tout d'accord
-services sociétaux . su . calcul su . question 6 . je ne sais pas:
+#### Si on choisi de prendre en compte les infos du test NGC
+#services sociétaux . su . calcul su . question 6:
+##  question: Comment votre logement est chauffé ?
+#  formule:
+#    variations:
+#      - si:
+#           une de ces conditions:
+#             - électricité . présent
+#             - réseau de chaleur . présent
+#             - PAC . présent
+#             - bois . présent
+#        alors: écologique
+#      - si:
+#           une de ces conditions: 
+#             - gaz . présent
+#             - bouteille gaz . présent
+#             - citerne propane . présent
+#        alors: gaz
+#      - si: fioul . présent
+#        alors: fioul
+
+services sociétaux . su . calcul su . question 6 . écologique:
+  titre:  Électricité, réseau de chaleur ou pompe à chaleur
+services sociétaux . su . calcul su . question 6 . gaz:
+  titre: Gaz
+services sociétaux . su . calcul su . question 6 . fioul:
+  titre: Fioul
 
 services sociétaux . su . calcul su . question 6 . conversion:
   formule:
     variations:
-      - si: question 6 = 'tout à fait d'accord'
+      - si: question 6 = 'écologique'
         alors: 1
-      - si: question 6 = 'plutôt d'accord'
+      - si: question 6 = 'gaz'
         alors: 2
-      - si: question 6 = 'plutôt pas d'accord'
+      - si: question 6 = 'fioul'
         alors: 3
-      - si: question 6 = 'pas du tout d'accord'
-        alors: 4
-      - sinon: 9
   description: |
     On convertit les réponses textuelles en valeur pour pouvoir les sommer et ainsi conserver la réponse utilisateur.
