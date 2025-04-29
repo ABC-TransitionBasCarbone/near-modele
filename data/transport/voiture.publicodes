@@ -3,7 +3,7 @@ transport . voiture:
   icônes: 🚘
   formule:
     variations:
-      - si: km2 = 0
+      - si: km = 0
         alors: 0
       - sinon:
           variations:
@@ -51,27 +51,32 @@ transport . voiture:
 #    1000km / mois: 12000
 #    20 000km / an: 20000
 
-transport . voiture . km2:
-  titre: Km total
-  formule:
-    somme:
-      - km domicile travail
-      - km habituels
-      - km vacances
-#  unité: km
+#transport . voiture . km2:
+#  titre: Km total
+#  formule:
+#    somme:
+#      - km domicile travail
+#      - km habituels
+#      - km vacances
+##  unité: km
 
 ##Tranchez les cas des déplacements pro de types petits-trajets (artisans, etc.)
 #transport . voiture . km domicile travail:
 #  formule: km * 1
-transport . voiture . km domicile travail:
-  titre: Km domicile-travail en voiture
-  question: En vous aidant de l'aide à la saisie ci-dessous, quelle distance parcourez-vous en voiture pour vos déplacements domicile-travail ?
+transport . voiture . km:
+  titre: Km en voiture
+  question: En vous aidant de l'aide à la saisie ci-dessous et sans compter les déplacements pour des missions professionnelles, quelle distance parcourez-vous en voiture à l'année ?
   description: |
-    Renseignez la (ou les) fréquence et la (ou les) distance pour rejoindre votre (ou vos) lieu de travail habituel que vous soyez conducteur ou passager. Pensez aussi à renseigner un nombre de voyageurs moyen par trajet.
-    
-    Par exemple : si vous faites 10 km aller-retour pour vous rendre sur votre lieu de travail et cela 5 fois par semaine avec une autre personne dans la voiture, renseignez une seule modalité : 10 km / 5 / semaines / 2
+    Vous disposez de trois types de modalités pour renseigner les trajets que vous faites que vous soyez conducteur ou passager: 
+      - Domicile-Travail. Vous pouvez spécifier ces trajets selon une fréquence journalière, hebdomadaire, mensuelle ou annuelle.
+      - Régulier. Ces trajets englobent tous les trajets récurrents (courses, loisirs, sport, famille, etc.) que vous faites sur **une semaine**. Cherchez avant tout à renseigner un nombre de kilomètres cohérent avec votre mode de vie, ce n'est pas grave si vous ne conaissez pas la distance exacte hebdomadaire.
+      - Vacances/Week-end. Ces trajets sont à spécifier selon une temporalité annuelle. A vous de faire un petit calcul de tête pour estimer un kilométrage annuel.
 
-    **Important : ne comptez pas les déplacements pour des missions professionnelle.** Cela rentre dans la comptabilité de votre entreprise.
+    Vous pouvez utiliser plusieurs fois chaque modalité si vous souhaitez distinguer plusieurs types de trajets (comme différentes vacances par exemple). Enfin, pensez à bien renseigner un nombre de passager moyen cohérent avec les types de trajet que vous renseignez.
+    
+    **Un exemple** : si vous faites 10 km aller-retour pour vous rendre sur votre lieu de travail et cela 5 fois par semaine avec une autre personne dans la voiture, renseignez une seule modalité : 10 km / 5 / semaines / 2
+
+    **Un rappel** : ne comptez pas les déplacements pour des missions professionnelles ! Cela relève de la responsabilité de votre entreprise.
 #  # It seems that there is a [publicodes bug](https://github.com/publicodes/publicodes/issues/517). For now, we can't use `km annuels moyen réel` directly here, until the problem is fixed.
   par défaut: 8210
   unité: km
@@ -84,43 +89,43 @@ transport . voiture . km domicile travail:
 #    1000km / mois: 12000
 #    20 000km / an: 20000
 
+##transport . voiture . km habituels:
+##  formule: km * 1
 #transport . voiture . km habituels:
-#  formule: km * 1
-transport . voiture . km habituels:
-  titre: Km habituels en voiture
-  question: Sur une semaine, quelle distance parcourez-vous en voiture pour des trajets habituels (courses, loisirs, sport, famille, etc.) ?
-  description: |
-    Cherchez avant tout à renseigner un nombre de kilomètres cohérent avec votre mode de vie, ce n'est pas grave si vous ne conaissez pas la distance exacte.
-    
-    **Attention !** Nous raisonnons ici sur **une semaine.**
-  # It seems that there is a [publicodes bug](https://github.com/publicodes/publicodes/issues/517). For now, we can't use `km annuels moyen réel` directly here, until the problem is fixed.
-  par défaut: 8210
-  unité: km
-  plancher: 0
-  plafond: 99999
-  suggestions:
-    zéro: 0
-    10km / semaine: 10
-    50km / semaine: 50
-    100km / semaine: 100
+#  titre: Km habituels en voiture
+#  question: Sur une semaine, quelle distance parcourez-vous en voiture pour des trajets habituels (courses, loisirs, sport, famille, etc.) ?
+#  description: |
+#    Cherchez avant tout à renseigner un nombre de kilomètres cohérent avec votre mode de vie, ce n'est pas grave si vous ne conaissez pas la distance exacte.
+#    
+#    **Attention !** Nous raisonnons ici sur **une semaine.**
+#  # It seems that there is a [publicodes bug](https://github.com/publicodes/publicodes/issues/517). For now, we can't use `km annuels moyen réel` directly here, until the problem is fixed.
+#  par défaut: 8210
+#  unité: km
+#  plancher: 0
+#  plafond: 99999
+#  suggestions:
+#    zéro: 0
+#    10km / semaine: 10
+#    50km / semaine: 50
+#    100km / semaine: 100
 
+##transport . voiture . km vacances:
+##  formule: km * 1
 #transport . voiture . km vacances:
-#  formule: km * 1
-transport . voiture . km vacances:
-  titre: Km vacances en voiture
-  question: Sur une année, quelle distance parcourez-vous **en voiture** pour vos weekends et vacances ?
-  description: |
-    Nous parlons ici uniquement des kilomètres fait **en voiture !** Ceux faits avec en camping-car ou van possédé/loué sont questionnés après.
-  # It seems that there is a [publicodes bug](https://github.com/publicodes/publicodes/issues/517). For now, we can't use `km annuels moyen réel` directly here, until the problem is fixed.
-  par défaut: 8210
-  unité: km
-  plancher: 0
-  plafond: 99999
-  suggestions:
-    zéro: 0
-    500km / an: 500
-    1000km / an: 1000
-    2000km / an: 2000
+#  titre: Km vacances en voiture
+#  question: Sur une année, quelle distance parcourez-vous **en voiture** pour vos weekends et vacances ?
+#  description: |
+#    Nous parlons ici uniquement des kilomètres fait **en voiture !** Ceux faits avec en camping-car ou van possédé/loué sont questionnés après.
+#  # It seems that there is a [publicodes bug](https://github.com/publicodes/publicodes/issues/517). For now, we can't use `km annuels moyen réel` directly here, until the problem is fixed.
+#  par défaut: 8210
+#  unité: km
+#  plancher: 0
+#  plafond: 99999
+#  suggestions:
+#    zéro: 0
+#    500km / an: 500
+#    1000km / an: 1000
+#    2000km / an: 2000
 
 transport . voiture . km annuels moyen réel:
   #8210
@@ -185,7 +190,7 @@ transport . voiture . nombre véhicules circulation . VUL:
 
 transport . voiture . utilisateur:
   question: Utilisez-vous majoritairement la même voiture pour vous déplacer ?
-  applicable si: km2 > 0
+  applicable si: km > 0
 #    une de ces conditions:
 #      - km domicile travail > 0
 #      - km habituels > 0
@@ -227,7 +232,7 @@ transport . voiture . notif utilsateur irrégulier:
     toutes ces conditions:
       - est défini: voiture . utilisateur
       - utilisateur = 'non régulier'
-      - km2 > 0
+      - km > 0
   description: |
     Vous roulez avec des véhicules différents : nous vous avons donc attribué les caractéristiques d'une voiture "moyenne".
 
@@ -268,7 +273,7 @@ transport . voiture . empreinte calculée:
 transport . voiture . voyageurs:
   titre: Nombre de voyageurs
   question: Quel est le nombre moyen de voyageurs dans la voiture ?
-  applicable si: km2 > 0
+  applicable si: km > 0
   description: |
     Une voiture consomme à peu près autant qu'elle ait 1, 2 ou 5 voyageurs à bord. Voyager à plusieurs, c'est donc potentiellement diviser par 5 l'empreinte individuelle !
 
@@ -323,7 +328,7 @@ transport . voiture . notif nombreux voyageurs:
 
 transport . voiture . usage:
   titre: Usage de la voiture
-  formule: usage au kilomètre * km2
+  formule: usage au kilomètre * km
   unité: kgCO2e
 
 transport . voiture . usage au kilomètre:
@@ -410,7 +415,7 @@ transport . voiture . motorisation:
       - une de ces conditions:
           - utilisateur = 'propriétaire'
           - utilisateur = 'régulier non propriétaire'
-      - km2 > 0
+      - km > 0
   description: 💡 **Si vous utilisez plusieurs voitures (par exemple dans le cas où vous n'en possédez pas une), choisissez la réponse la plus représentative de votre usage.**
   par défaut: "'thermique'"
   formule:
@@ -451,7 +456,7 @@ transport . voiture . thermique . consommation aux 100:
       - une de ces conditions:
           - motorisation = 'thermique'
           - motorisation = 'hybride'
-      - km2 > 0
+      - km > 0
   description: |
     **💡 Si vous utilisez plusieurs voitures (par exemple dans le cas où vous n'en possédez pas une), choisissez la réponse la plus représentative de votre usage.**
   suggestions:
@@ -638,7 +643,7 @@ transport . voiture . thermique . carburant:
       - une de ces conditions:
           - motorisation = 'thermique'
           - motorisation = 'hybride'
-      - km2 > 0
+      - km > 0
   description: |
     Pour comprendre les différents types de carburants, [cet article pédagogique](https://www.francetvinfo.fr/economie/automobile/essence/les-carburants-changent-de-nom-a-la-pompe-voici-comment-vous-y-retrouver_2967013.html) est très utile.
 
@@ -710,7 +715,7 @@ transport . voiture . électrique . consommation aux 100:
           - utilisateur = 'propriétaire'
           - utilisateur = 'régulier non propriétaire'
       - motorisation = 'électrique'
-      - km2 > 0
+      - km > 0
   suggestions:
     15 kWh/100km: 15
     20 kWh/100km: 20
@@ -741,7 +746,7 @@ transport . voiture . gabarit:
       - une de ces conditions:
           - utilisateur = 'propriétaire'
           - utilisateur = 'régulier non propriétaire'
-      - km2 > 0
+      - km > 0
   description: |
     **💡 Si vous utilisez plusieurs voitures (par exemple dans le cas où vous n'en possédez pas une), choisissez la réponse la plus représentative de votre usage.**
 
@@ -860,9 +865,9 @@ transport . voiture . construction:
       - si:
           toutes ces conditions:
             - voiture . utilisateur = 'propriétaire'
-            - km2 < seuil km
+            - km < seuil km
         alors: construction au kilomètre * seuil km
-      - sinon: construction au kilomètre * km2
+      - sinon: construction au kilomètre * km
   unité: kgCO2e
   note: |
     Pour le moment, nous ne considérons pas l'amortissement complet d'une voiture (c'est-à-dire que nous n'avons pas l'info de l'âge ou le kilométrage complet de la voiture donc sa contruction ne sera jamais nulle).
@@ -1055,7 +1060,7 @@ transport . voiture . durée de vie en km:
 transport . voiture . âge:
   applicable si:
     toutes ces conditions:
-      - voiture . km2 > 1
+      - voiture . km > 1
       - utilisateur = 'propriétaire'
   question: Quel est l'âge de votre voiture ?
   description: |

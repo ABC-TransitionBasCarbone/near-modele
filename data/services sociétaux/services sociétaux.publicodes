@@ -25,6 +25,7 @@ services sociétaux:
     somme:
       - services publics
       - services marchands
+      - su
 
 services sociétaux . question rhétorique:
   titre: Question d'information sur les services communs
@@ -45,39 +46,40 @@ services sociétaux . question rhétorique . ok:
 services sociétaux . su:
   formule:
     variations:
-      - si: 
-          toutes ces conditions:
-            - connaissance = 'oui'
-            - connaissance . choix = 'SU 1'
-        alors: connaissance . choix . SU 1
-      - si: 
-          toutes ces conditions:
-            - connaissance = 'oui'
-            - connaissance . choix = 'SU 2'
-        alors: connaissance . choix . SU 2
-      - si: 
-          toutes ces conditions:
-            - connaissance = 'oui'
-            - connaissance . choix = 'SU 3'
-        alors: connaissance . choix . SU 3
-      - si: 
-          toutes ces conditions:
-            - connaissance = 'oui'
-            - connaissance . choix = 'SU 4'
-        alors: connaissance . choix . SU 4
-      - sinon: calcul su
+      - si: connaissance su = 'oui'
+        alors: 1000
+      - sinon: 5000
   unité: kgCO2e
+#            toutes ces conditions:
+#            - connaissance
+#            - choix = 'SU 1'
+#        alors: 1000
+#      - si: 
+#          toutes ces conditions:
+#            - connaissance
+#            - choix = 'SU 2'
+#        alors: 2000
+#      - si: 
+#          toutes ces conditions:
+#            - connaissance
+#            - choix = 'SU 3'
+#        alors: 3000
+#      - si: 
+#          toutes ces conditions:
+#            - connaissance
+#            - choix = 'SU 4'
+#        alors: 4000
+#      - sinon: calcul su
   
-services sociétaux . su . connaissance:
+services sociétaux . connaissance su:
   question: Connaissez-vous la Sphère d'Usage à laquelle vous appartenez ? 
   description: |
-    Les Sphères d'Usage représentent des groupes d'individu qui partagent des similarités de modes de vie en matière de mobilité, logement, alimentation et consommation au sein de votre quartier.
-  par défaut: non
+    Les Sphères d'Usage représentent des groupes d'individu qui partagent, au sein de votre quartier, des similarités de modes de vie en matière de mobilité, logement, alimentation et consommation.
 
-
-services sociétaux . su . connaissance . choix:
+services sociétaux . su . choix:
+  applicable si: connaissance su
+  titre: choix de la SU
   question: A quelle Sphère d'Usage appartenez-vous ?
-  applicable si: connaissance = 'oui'
   formule:
     une possibilité:
       choix obligatoire: oui
@@ -87,29 +89,29 @@ services sociétaux . su . connaissance . choix:
         - SU 3
         - SU 4
 
-services sociétaux . su . connaissance . choix . SU 1:
+services sociétaux . su . choix . SU 1:
   titre: Nom de la SU 1
-  formule: 0.1
-  unité: kgCO2e
+#  formule: 0.1
+#  unité: kgCO2e
 
-services sociétaux . su . connaissance . choix . SU 2:
+services sociétaux . su . choix . SU 2:
   titre: Nom de la SU 2
-  formule: 0.2
-  unité: kgCO2e
+#  formule: 0.2
+#  unité: kgCO2e
 
-services sociétaux . su . connaissance . choix . SU 3:
+services sociétaux . su . choix . SU 3:
   titre: Nom de la SU 3
-  formule: 0.3
-  unité: kgCO2e
+#  formule: 0.3
+#  unité: kgCO2e
 
-services sociétaux . su . connaissance . choix . SU 4:
+services sociétaux . su . choix . SU 4:
   titre: Nom de la SU 4
-  formule: 0.4
-  unité: kgCO2e
+#  formule: 0.4
+#  unité: kgCO2e
 
 services sociétaux . su . calcul su:
   titre: Calcul des SU
-  applicable si: connaissance = 'non'
+#  applicable si: connaissance = 'non'
   description: |
     Les 6 questions suivantes ont pour but de vous attribuer une Sphère d'Usage, c'est-à-dire un groupe dont vous partagez des similarités de modes de vie en matière de mobilité, logement, alimentation et consommation au sein de votre quartier.
   formule:
@@ -123,6 +125,7 @@ services sociétaux . su . calcul su:
   unité: kgCO2e
 
 services sociétaux . su . calcul su . question 1:
+#  applicable si: connaissance = 'non'
   question: En accord avec les réponses données précédemment, lors de vos repas, vous mangez de la viande (poulet, bœuf, etc.)... ?
 #  par défaut: "'je ne sais pas'"
   formule:
@@ -141,6 +144,7 @@ services sociétaux . su . calcul su . question 1 . beaucoup:
   titre: 10 repas par semaine ou plus (dans presque tous les repas)
 
 services sociétaux . su . calcul su . question 1 . conversion:
+#  applicable si: connaissance = 'non'
   formule:
     variations:
       - si: question 1 = 'faible'
@@ -153,6 +157,7 @@ services sociétaux . su . calcul su . question 1 . conversion:
     On convertit les réponses textuelles en valeur pour pouvoir les sommer et ainsi conserver la réponse utilisateur.
 
 services sociétaux . su . calcul su . question 2:
+#  applicable si: connaissance = 'non'
   question:  Comment vous déplacez-vous au quotidien ? Si il y en a plusieurs, indiquez votre mode de transport principal, celui avec lequel vous faites le plus de distance au quotidien ?
   par défaut: "'je ne sais pas'"
   formule:

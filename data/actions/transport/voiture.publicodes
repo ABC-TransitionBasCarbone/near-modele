@@ -1,8 +1,8 @@
 transport . voiture . éco-conduite:
   titre: Adopter une éco-conduite
-  applicable si: voiture . km2 > 0
+  applicable si: voiture . km > 0
   icônes: 🚗☮
-  formule: voiture . empreinte au kilomètre * voiture . km2 * réduction / transport . voiture . voyageurs
+  formule: voiture . empreinte au kilomètre * voiture . km * réduction / transport . voiture . voyageurs
   unité: kgCO2e
   description: |
     Sécurité, réduction des émissions de gaz à effet de serre, économies de carburant : l’écoconduite n’a que des avantages. 
@@ -22,7 +22,7 @@ transport . voiture . éco-conduite . réduction:
 transport . voiture . limitation autoroute:
   titre: Rouler à 110km/h sur l'autoroute
   icônes: 🚗🛣️
-  applicable si: voiture . km2 > 0
+  applicable si: voiture . km > 0
   formule: transport . voiture . empreinte au kilomètre * km autoroute * réduction / transport . voiture . voyageurs
   description: |
     Diminuer sa vitesse de 20 km/h sur l’autoroute permet de réduire sa consommation de carburant de l’ordre de 20 %. En ville, il est conseillé de rouler à 30 km/h pour moins consommer, fluidifier le trafic et mieux partager la route avec les vélos, les trottinettes et les piétons.
@@ -32,7 +32,7 @@ transport . voiture . limitation autoroute:
 transport . voiture . limitation autoroute . km autoroute:
   question: Combien de km à l'année faites-vous sur autoroute (à peu près) ?
   unité: km
-  par défaut: voiture . km2 * 0.1
+  par défaut: voiture . km * 0.1
   description: |
     On parcourt environ 80 milliards de km / an sur autoroute (voiture).
   suggestions:
@@ -68,7 +68,7 @@ transport . voiture . limitation autoroute . réduction:
 
 transport . voiture . covoiturage:
   titre: Covoiturer
-  applicable si: voiture . km2 > 0
+  applicable si: voiture . km > 0
   non applicable si:
     toutes ces conditions:
       - est défini: voiture . utilisateur
@@ -106,8 +106,8 @@ transport . voiture . autopartage:
   formule: transport . voiture - recalcul
   applicable si:
     toutes ces conditions:
-      - voiture . km2 > 0
-      - voiture . km2 < plafond activation autopartage
+      - voiture . km > 0
+      - voiture . km < plafond activation autopartage
   non applicable si:
     toutes ces conditions:
       - est défini: voiture . utilisateur
@@ -121,7 +121,7 @@ transport . voiture . autopartage:
 transport . voiture . autopartage . recalcul:
   valeur: transport . voiture
   contexte:
-    transport . voiture . km2: transport . voiture . km2 * (1 - 0.41)
+    transport . voiture . km: transport . voiture . km * (1 - 0.41)
   note: |
     L'auto-partage permet de réduire le nombre de km parcourus dans l'année (l'usage de la voiture est moins systématique).
     En moyenne, on compte une baisse de 41% des kilomètres par an d'après [cette étude ADEME](https://presse.ademe.fr/wp-content/uploads/2013/03/ena_4pages_presse_130306.pdf).
@@ -137,7 +137,7 @@ transport . voiture . voiture 5km:
   formule: transport . voiture - recalcul
   applicable si:
     toutes ces conditions:
-      - voiture . km2 > seuil d'activation 5km
+      - voiture . km > seuil d'activation 5km
       - est défini: voiture . utilisateur
       - voiture . utilisateur = 'propriétaire'
   note: |
@@ -152,7 +152,7 @@ transport . voiture . voiture 5km:
 transport . voiture . voiture 5km . recalcul:
   valeur: transport . voiture
   contexte:
-    transport . voiture . km2: transport . voiture . voiture 5km . distance totale
+    transport . voiture . km: transport . voiture . voiture 5km . distance totale
 
 transport . seuil d'activation 5km:
   titre: Seuil d'activation actions liées aux courts trajets
@@ -179,8 +179,8 @@ transport . voiture . voiture 5km . distance totale:
   titre: Distance totale évitée
   formule:
     variations:
-      - si: distance totale renseignée > transport . voiture . km2
-        alors: transport . voiture . km2
+      - si: distance totale renseignée > transport . voiture . km
+        alors: transport . voiture . km
       - sinon: distance totale renseignée
 
 transport . voiture . voiture 5km . distance totale renseignée:
@@ -203,7 +203,7 @@ transport . voiture . voiture 5km . fréquence:
 transport . voiture . voiture électrique:
   titre: Rouler en voiture électrique
   icônes: 🔌🚗
-  applicable si: voiture . km2 > 0
+  applicable si: voiture . km > 0
   non applicable si:
     une de ces conditions:
       - transport . voiture . motorisation = 'électrique'
@@ -234,7 +234,7 @@ transport . voiture . réduire taille:
     Le prix, la dimension, le confort, l’esthétisme, ça compte mais ce ne peut plus être les seuls critères de choix. La consommation de carburant et les faibles émissions de CO₂ sont tout aussi essentielles ! 
 
     Rendez-vous [sur le site Je Change ma Voiture](https://jechangemavoiture.gouv.fr/) pour une mobilité plus propre et plus économe.
-  applicable si: voiture . km2 > 0
+  applicable si: voiture . km > 0
   non applicable si:
     une de ces conditions:
       - transport . voiture . motorisation = 'petite'
@@ -254,7 +254,7 @@ transport . voiture . faire durer:
   titre: Faire durer son véhicule
   applicable si:
     toutes ces conditions:
-      - voiture . km2 > 0
+      - voiture . km > 0
       - est défini: voiture . utilisateur
       - voiture . utilisateur = 'propriétaire'
   description: |

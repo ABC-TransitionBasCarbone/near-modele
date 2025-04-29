@@ -61,7 +61,7 @@ transport . vacances . caravane:
   icônes: 🚎
   applicable si:
     toutes ces conditions:
-      - transport . voiture . km2 > 0
+      - transport . voiture . km > 0
       - propriétaire
   formule: usage réel + construction amortie
   note: |

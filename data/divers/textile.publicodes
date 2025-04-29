@@ -148,7 +148,8 @@ divers . textile . article léger . nombre:
   question: Nombre d'articles légers achetés sur une année
   plancher: 0
   plafond: 30
-  par défaut: 4
+  par défaut: 9
+  note: valeurs par défaut reprises du modèle initial (4 t-shirts, 2 shorts, 2 chemises, 1 jupe)
 
 divers . textile . article léger . empreinte:
   formule:
@@ -188,7 +189,8 @@ divers . textile . article épais . nombre:
   question: Nombre d'articles épais achetés sur une année
   plancher: 0
   plafond: 30
-  par défaut: 4
+  par défaut: 7
+  note: valeurs par défaut reprises du modèle initial (2 pantalons, 2 sweats, 2 robes, 1 pull)
 
 divers . textile . article épais . empreinte:
   formule:
@@ -544,7 +546,8 @@ divers . textile . gros article . nombre:
   question: Nombre de gros articles génériques achetés sur une année
   plancher: 0
   plafond: 10
-  par défaut: 1
+  par défaut: 2
+  note: valeurs par défaut reprises du modèle initial (1 gros article, 1 manteau)
 
 divers . textile . gros article . empreinte:
   formule:
