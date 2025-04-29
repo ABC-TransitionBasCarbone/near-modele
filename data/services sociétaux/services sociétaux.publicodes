@@ -25,6 +25,7 @@ services sociétaux:
     somme:
       - services publics
       - services marchands
+      - su
 
 services sociétaux . question rhétorique:
   titre: Question d'information sur les services communs
@@ -43,41 +44,29 @@ services sociétaux . question rhétorique . ok:
   titre: OK
 
 services sociétaux . su:
+  applicable si: services sociétaux . question rhétorique = 'ok'
   formule:
     variations:
-      - si: 
-          toutes ces conditions:
-            - connaissance = 'oui'
-            - connaissance . choix = 'SU 1'
+      - si: connaissance . choix = 'SU 1'
         alors: connaissance . choix . SU 1
-      - si: 
-          toutes ces conditions:
-            - connaissance = 'oui'
-            - connaissance . choix = 'SU 2'
+      - si: connaissance . choix = 'SU 2'
         alors: connaissance . choix . SU 2
-      - si: 
-          toutes ces conditions:
-            - connaissance = 'oui'
-            - connaissance . choix = 'SU 3'
+      - si: connaissance . choix = 'SU 3'
         alors: connaissance . choix . SU 3
-      - si: 
-          toutes ces conditions:
-            - connaissance = 'oui'
-            - connaissance . choix = 'SU 4'
+      - si: connaissance . choix = 'SU 4'
         alors: connaissance . choix . SU 4
       - sinon: calcul su
   unité: kgCO2e
   
 services sociétaux . su . connaissance:
+  applicable si: services sociétaux . question rhétorique = 'ok'
   question: Connaissez-vous la Sphère d'Usage à laquelle vous appartenez ? 
   description: |
     Les Sphères d'Usage représentent des groupes d'individu qui partagent des similarités de modes de vie en matière de mobilité, logement, alimentation et consommation au sein de votre quartier.
-  par défaut: non
-
 
 services sociétaux . su . connaissance . choix:
   question: A quelle Sphère d'Usage appartenez-vous ?
-  applicable si: connaissance = 'oui'
+  par défaut: SU 1
   formule:
     une possibilité:
       choix obligatoire: oui
@@ -109,7 +98,7 @@ services sociétaux . su . connaissance . choix . SU 4:
 
 services sociétaux . su . calcul su:
   titre: Calcul des SU
-  applicable si: connaissance = 'non'
+  par défaut: 0
   description: |
     Les 6 questions suivantes ont pour but de vous attribuer une Sphère d'Usage, c'est-à-dire un groupe dont vous partagez des similarités de modes de vie en matière de mobilité, logement, alimentation et consommation au sein de votre quartier.
   formule:
@@ -154,7 +143,6 @@ services sociétaux . su . calcul su . question 1 . conversion:
 
 services sociétaux . su . calcul su . question 2:
   question:  Comment vous déplacez-vous au quotidien ? Si il y en a plusieurs, indiquez votre mode de transport principal, celui avec lequel vous faites le plus de distance au quotidien ?
-  par défaut: "'je ne sais pas'"
   formule:
     une possibilité:
       choix obligatoire: oui
@@ -191,7 +179,6 @@ services sociétaux . su . calcul su . question 2 . je ne sais pas:
 
 services sociétaux . su . calcul su . question 3:
   question: XXX ?
-  par défaut: "'je ne sais pas'"
   formule:
     une possibilité:
       choix obligatoire: oui
@@ -228,7 +215,6 @@ services sociétaux . su . calcul su . question 3 . conversion:
 
 services sociétaux . su . calcul su . question 4:
   question: XXX ?
-  par défaut: "'je ne sais pas'"
   formule:
     une possibilité:
       choix obligatoire: oui
@@ -265,7 +251,6 @@ services sociétaux . su . calcul su . question 4 . conversion:
 
 services sociétaux . su . calcul su . question 5:
   question: XXX ?
-  par défaut: "'je ne sais pas'"
   formule:
     une possibilité:
       choix obligatoire: oui
@@ -302,7 +287,6 @@ services sociétaux . su . calcul su . question 5 . conversion:
 
 services sociétaux . su . calcul su . question 6:
   question: XXX ?
-  par défaut: "'je ne sais pas'"
   formule:
     une possibilité:
       choix obligatoire: oui
