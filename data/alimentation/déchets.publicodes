@@ -32,9 +32,9 @@ alimentation . déchets . quantité jetée:
         - zéro déchet
 
 alimentation . déchets . quantité jetée . base:
-  titre: Je jette sans faire attention
+  titre: J'ai tendance à jeter sans me poser des questions
   description: |
-    Vous avez tendance à jeter sans vous poser de question.
+    Vous n'avez pas encore mis en place d'éco-gestes pour réduire vos déchets.
 
 alimentation . déchets . quantité jetée . réduction:
   titre: Je limite mes déchets
