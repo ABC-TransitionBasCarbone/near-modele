@@ -1,6 +1,9 @@
 services sociétaux:
   titre: Services sociétaux
-  applicable si: question rhétorique
+  applicable si: 
+    toutes ces conditions:
+      - question rhétorique
+      - explication su
   abréviation: S. sociétaux
   icônes: 🏛️
   description: |
@@ -43,108 +46,69 @@ services sociétaux . question rhétorique:
 services sociétaux . question rhétorique . ok:
   titre: OK
 
+services sociétaux . explication su:
+  titre: Informations sur les questions SU
+  question: Maintenant, revenons à votre quartier ! En 6 questions simples nous allons déterminer la Sphère d'Usage à laquelle vous appartenez.
+  description: |
+    Les Sphères d'Usage représentent des groupes d'individus qui partagent, au sein de votre quartier, des similarités de modes de vie en matière de mobilité, logement, alimentation et consommation.
+    
+    Si vous connaissez déjà votre Sphère d'Usage répondez "Oui" à la question suivante et cochez ensuite celle qui vous a été attribuée.
+  par défaut: "'ok'"
+  formule:
+    une possibilité:
+      choix obligatoire: oui
+      possibilités:
+        - ok
+
+services sociétaux . explication su . ok:
+  titre: OK
+
+services sociétaux . connaissance su:
+  question: Connaissez-vous la Sphère d'Usage à laquelle vous appartenez ? 
+
 services sociétaux . su:
-  applicable si: services sociétaux . question rhétorique = 'ok'
-  formule: calcul su
   unité: kgCO2e
-#  formule: 
-#    variations:
-#      - si: connaissance su
-#        alors: choix su
-#      - sinon: calcul su
-###
-#    variations:
-#      - si: connaissance . choix = 'SU 1'
-#        alors: connaissance . choix . SU 1
-#      - si: connaissance . choix = 'SU 2'
-#        alors: connaissance . choix . SU 2
-#      - si: connaissance . choix = 'SU 3'
-#        alors: connaissance . choix . SU 3
-#      - si: connaissance . choix = 'SU 4'
-#        alors: connaissance . choix . SU 4
-#      - sinon: calcul su
-#  unité: kgCO2e
-#  
-#services sociétaux . connaissance su:
-#  applicable si: services sociétaux . question rhétorique = 'ok'
-#  question: Connaissez-vous la Sphère d'Usage à laquelle vous appartenez ? 
-#  description: |
-#    Les Sphères d'Usage représentent des groupes d'individu qui partagent des similarités de modes de vie en matière de mobilité, logement, alimentation et consommation au sein de votre quartier.
-#
-#### Essai 1 pour choix SU
-#services sociétaux . su . choix su:
-#  applicable si: connaissance su
-#  formule:
-#    variations:
-#      - si: choix . SU 1
-#        alors: 0.1
-#      - si: choix . SU 2
-#        alors: 0.2
-#      - si: choix . SU 3
-#        alors: 0.3
-#  unité: kgCO2e
-#
-#services sociétaux . su . choix su . choix:
-#  applicable si: connaissance su
-#  question: A quelle Sphère d'Usage appartenez-vous ?
-#  par défaut: SU 1
-#  formule:
-#    une possibilité:
-#      choix obligatoire: oui
-#      possibilités:
-#        - SU 1
-#        - SU 2
-#        - SU 3
-#
-#services sociétaux . su . choix su . choix . SU 1:
-#  titre: Nom de la SU 1
-##  formule: 0.1
-##  unité: kgCO2e
-#
-#services sociétaux . su . choix su . choix . SU 2:
-#  titre: Nom de la SU 2
-##  formule: 0.2
-##  unité: kgCO2e
-#
-#services sociétaux . su . choix su . choix . SU 3:
-#  titre: Nom de la SU 3
-##  formule: 0.3
-##  unité: kgCO2e
-#### Fin essai 1 pour choix SU
-#
-#### Essai 2 pour choix SU
-#services sociétaux . su . connaissance . choix:
-#  question: A quelle Sphère d'Usage appartenez-vous ?
-#  par défaut: SU 1
-#  formule:
-#    une possibilité:
-#      choix obligatoire: oui
-#      possibilités:
-#        - SU 1
-#        - SU 2
-#        - SU 3
-#        - SU 4
-#
-#services sociétaux . su . connaissance . choix . SU 1:
-#  titre: Nom de la SU 1
-#  formule: 0.1
-#  unité: kgCO2e
-#
-#services sociétaux . su . connaissance . choix . SU 2:
-#  titre: Nom de la SU 2
-#  formule: 0.2
-#  unité: kgCO2e
-#
-#services sociétaux . su . connaissance . choix . SU 3:
-#  titre: Nom de la SU 3
-#  formule: 0.3
-#  unité: kgCO2e
-#
-#services sociétaux . su . connaissance . choix . SU 4:
-#  titre: Nom de la SU 4
-#  formule: 0.4
-#  unité: kgCO2e
-#### Fin essai 2 pour choix SU
+  formule: 
+    variations:
+      - si: 
+          toutes ces conditions:
+            - est défini: connaissance su
+            - connaissance su
+        alors: sélection su
+      - sinon: calcul su
+
+services sociétaux . su . sélection su:
+  formule:
+    variations:
+      - si: choix = 'SU 1'
+        alors: 0.001
+      - si: choix = 'SU 2'
+        alors: 0.002
+      - si: choix = 'SU 3'
+        alors: 0.003
+  unité: kgCO2e
+  par défaut: 0
+
+services sociétaux . su . choix:
+  applicable si: connaissance su
+  question: A quelle Sphère d'Usage appartenez-vous ?
+  par défaut: SU 1
+  formule:
+    une possibilité:
+      choix obligatoire: oui
+      possibilités:
+        - SU 1
+        - SU 2
+        - SU 3
+
+services sociétaux . su . choix . SU 1:
+  titre: Nom de la SU 1
+
+services sociétaux . su . choix . SU 2:
+  titre: Nom de la SU 2
+
+services sociétaux . su . choix . SU 3:
+  titre: Nom de la SU 3
 
 services sociétaux . su . calcul su:
   titre: Calcul des SU
@@ -199,11 +163,11 @@ services sociétaux . su . calcul su . question 1 . conversion:
   formule:
     variations:
       - si: question 1 = 'faible'
-        alors: 1
+        alors: 0.1
       - si: question 1 = 'moyen'
-        alors: 2
+        alors: 0.2
       - si: question 1 = 'beaucoup'
-        alors: 3
+        alors: 0.3
   description: |
     On convertit les réponses textuelles en valeur pour pouvoir les sommer et ainsi conserver la réponse utilisateur.
 
@@ -223,11 +187,11 @@ services sociétaux . su . calcul su . question 2 . conversion:
   formule:
     variations:
       - si: question 2 = 'voiture'
-        alors: 1
+        alors: 0.1
       - si: question 2 = 'transports en commun'
-        alors: 2
+        alors: 0.2
       - si: question 2 = 'marche vélo trottinette'
-        alors: 3
+        alors: 0.3
   description: |
     On convertit les réponses textuelles en valeur pour pouvoir les sommer et ainsi conserver la réponse utilisateur.
 
@@ -274,11 +238,11 @@ services sociétaux . su . calcul su . question 3 . conversion:
   formule:
     variations:
       - si: question 3 = 'faible'
-        alors: 1
+        alors: 0.1
       - si: question 3 = 'moyen'
-        alors: 2
+        alors: 0.2
       - si: question 3 = 'beaucoup'
-        alors: 3
+        alors: 0.3
   description: |
     On convertit les réponses textuelles en valeur pour pouvoir les sommer et ainsi conserver la réponse utilisateur.
 
@@ -303,11 +267,11 @@ services sociétaux . su . calcul su . question 4 . conversion:
   formule:
     variations:
       - si: question 4 = 'priorité neuf'
-        alors: 1
+        alors: 0.1
       - si: question 4 = 'mélange'
-        alors: 2
+        alors: 0.2
       - si: question 4 = 'priorité occasion'
-        alors: 3
+        alors: 0.3
   description: |
     On convertit les réponses textuelles en valeur pour pouvoir les sommer et ainsi conserver la réponse utilisateur.
 
@@ -334,11 +298,11 @@ services sociétaux . su . calcul su . question 5 . conversion:
   formule:
     variations:
       - si: question 5 = 'faible'
-        alors: 1
+        alors: 0.1
       - si: question 5 = 'moyen'
-        alors: 2
+        alors: 0.2
       - si: question 5 = 'beaucoup'
-        alors: 3
+        alors: 0.3
   description: |
     On convertit les réponses textuelles en valeur pour pouvoir les sommer et ainsi conserver la réponse utilisateur.
 
@@ -386,10 +350,10 @@ services sociétaux . su . calcul su . question 6 . conversion:
   formule:
     variations:
       - si: question 6 = 'écologique'
-        alors: 1
+        alors: 0.1
       - si: question 6 = 'gaz'
-        alors: 2
+        alors: 0.2
       - si: question 6 = 'fioul'
-        alors: 3
+        alors: 0.3
   description: |
     On convertit les réponses textuelles en valeur pour pouvoir les sommer et ainsi conserver la réponse utilisateur.
