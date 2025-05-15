@@ -242,4 +242,5 @@ ui . pédagogie . empreinte faible:
   actions:
     - divers . partage NGC
     - divers . aider les autres
-    - services sociétaux . voter
+    - services sociétaux . near
+#    - services sociétaux . voter

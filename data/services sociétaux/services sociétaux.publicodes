@@ -4,6 +4,7 @@ services sociétaux:
     toutes ces conditions:
       - question rhétorique
       - explication su
+#      - remerciements
   abréviation: S. sociétaux
   icônes: 🏛️
   description: |
@@ -86,6 +87,8 @@ services sociétaux . su . sélection su:
         alors: 0.002
       - si: choix = 'SU 3'
         alors: 0.003
+#      - si: choix = 'SU 4'
+#        alors: 0.004
   unité: kgCO2e
   par défaut: 0
 
@@ -100,6 +103,7 @@ services sociétaux . su . choix:
         - SU 1
         - SU 2
         - SU 3
+#        - SU 4
 
 services sociétaux . su . choix . SU 1:
   titre: Nom de la SU 1
@@ -109,6 +113,9 @@ services sociétaux . su . choix . SU 2:
 
 services sociétaux . su . choix . SU 3:
   titre: Nom de la SU 3
+
+#services sociétaux . su . choix . SU 4:
+#  titre: Nom de la SU 4
 
 services sociétaux . su . calcul su:
   titre: Calcul des SU
@@ -357,3 +364,22 @@ services sociétaux . su . calcul su . question 6 . conversion:
         alors: 0.3
   description: |
     On convertit les réponses textuelles en valeur pour pouvoir les sommer et ainsi conserver la réponse utilisateur.
+
+#services sociétaux . remerciements:
+#  applicable si:
+#    toutes ces conditions:
+#      - est défini: services sociétaux . su
+#      - services sociétaux . su >= 0
+#  titre: Remerciements
+#  question: Les résultats de cette enquête permettront de dégager des sujets prioritaires d’actions collectives pour réduire l’impact sur le climat du quartier, en accord avec les préoccupations des habitants. Si vous ne l’avez pas déjà fait, faites remonter vos préoccupations via ce questionnaire de 10 min.
+#  description: |
+#    Lien du questionnaire en question
+#  par défaut: "'ok'"
+#  formule:
+#    une possibilité:
+#      choix obligatoire: oui
+#      possibilités:
+#        - ok
+#
+#services sociétaux . remerciements . ok:
+#  titre: OK
