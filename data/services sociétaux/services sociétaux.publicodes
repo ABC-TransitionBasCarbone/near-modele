@@ -3,7 +3,7 @@ services sociétaux:
   applicable si: 
     toutes ces conditions:
       - question rhétorique
-      - explication su
+#      - explication su
 #      - remerciements
   abréviation: S. sociétaux
   icônes: 🏛️
@@ -47,25 +47,30 @@ services sociétaux . question rhétorique:
 services sociétaux . question rhétorique . ok:
   titre: OK
 
-services sociétaux . explication su:
-  titre: Informations sur les questions SU
-  question: Maintenant, revenons à votre quartier ! En 6 questions simples nous allons déterminer la Sphère d'Usage à laquelle vous appartenez.
-  description: |
-    Les Sphères d'Usage représentent des groupes d'individus qui partagent, au sein de votre quartier, des similarités de modes de vie en matière de mobilité, logement, alimentation et consommation.
-    
-    Si vous connaissez déjà votre Sphère d'Usage répondez "Oui" à la question suivante et cochez ensuite celle qui vous a été attribuée.
-  par défaut: "'ok'"
-  formule:
-    une possibilité:
-      choix obligatoire: oui
-      possibilités:
-        - ok
-
-services sociétaux . explication su . ok:
-  titre: OK
+#services sociétaux . explication su:
+#  titre: Informations sur les questions SU
+#  question: Maintenant, revenons à votre quartier ! En 6 questions simples nous allons déterminer la Sphère d'Usage à laquelle vous appartenez.
+#  description: |
+#    Les Sphères d'Usage représentent des groupes d'individus qui partagent, au sein de votre quartier, des similarités de modes de vie en matière de mobilité, logement, alimentation et consommation.
+#    
+#    Si vous connaissez déjà votre Sphère d'Usage répondez "Oui" à la question suivante et cochez ensuite celle qui vous a été attribuée.
+#  par défaut: "'ok'"
+#  formule:
+#    une possibilité:
+#      choix obligatoire: oui
+#      possibilités:
+#        - ok
+#
+#services sociétaux . explication su . ok:
+#  titre: OK
 
 services sociétaux . connaissance su:
-  question: Connaissez-vous la Sphère d'Usage à laquelle vous appartenez ? 
+#  question: Connaissez-vous la Sphère d'Usage à laquelle vous appartenez ?
+  question: Maintenant, revenons au quartier de la porte d'Orléans ! Vous a t'on attribué un numéro de groupe à la suite d'un de nos questionnaires réalisés dans le quartier ?
+  description: |
+    Si c'est le cas répondez "Oui" et cliquez sur le numéro de groupe qui vous a été attribué. 
+    
+    Si ce n'est pas le cas (ou si vous ne vivez pas à la porte d'Orléans) cliquez "Non" et répondez aux questions (très simples) qui suivent.
 
 services sociétaux . su:
   unité: kgCO2e
@@ -94,7 +99,8 @@ services sociétaux . su . sélection su:
 
 services sociétaux . su . choix:
   applicable si: connaissance su
-  question: A quelle Sphère d'Usage appartenez-vous ?
+#  question: A quelle Sphère d'Usage appartenez-vous ?
+  question: Quel numéro de groupe vous a été attribué ?
   par défaut: SU 1
   formule:
     une possibilité:
@@ -106,13 +112,13 @@ services sociétaux . su . choix:
 #        - SU 4
 
 services sociétaux . su . choix . SU 1:
-  titre: Nom de la SU 1
+  titre: Groupe 1
 
 services sociétaux . su . choix . SU 2:
-  titre: Nom de la SU 2
+  titre: Groupe 2
 
 services sociétaux . su . choix . SU 3:
-  titre: Nom de la SU 3
+  titre: Groupe 3
 
 #services sociétaux . su . choix . SU 4:
 #  titre: Nom de la SU 4

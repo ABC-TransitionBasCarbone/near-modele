@@ -33,12 +33,10 @@ transport . voiture:
     Notons finalement qu'il est important de prendre en compte à la fois l'usage (les km parcourus) et la construction de ce véhicule de plus d'une tonne de matériaux divers.
 
 transport . voiture . quartier:
-  question: Vivez-vous et/ou êtes-vous un usager régulier des infrastructures du 14ème arrondissement de Paris ?
+  question: Habitez-vous dans le quartier de la porte d'Orléans du 14ème arrondissement de Paris ?
   description: |
-    Répondez oui si : 
-      - vous vivez dans le 14ème
-      - vous êtes un usager fréquent du quartier (pour vous rendre au travail, vos loisirs, vos sorties, vous soigner, rendre visite à de la famille, etc.)
-#  par défaut: non #Décommenter le par défaut si on veut éviter le problème de chiffrage de départ de l'empreinte --> mais la question quartier passera après celle des km
+    Le quartier de la porte d'Orléans est représenté par le zone bleue sur la carte ci-dessous ![]
+  par défaut: non #Décommenter le par défaut si on veut éviter le problème de chiffrage de départ de l'empreinte --> mais la question quartier passera après celle des km
 
 #transport . voiture . km:
 #  titre: Km en voiture
