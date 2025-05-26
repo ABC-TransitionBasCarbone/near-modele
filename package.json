@@ -1,6 +1,6 @@
 {
   "name": "@abc-transitionbascarbone/near-modele",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Modèle de calcul du projet NEAR (fork de Nos Gestes Climat)",
   "main": "index.js",
   "types": "index.d.ts",
