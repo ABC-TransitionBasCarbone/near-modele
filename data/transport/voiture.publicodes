@@ -32,6 +32,12 @@ transport . voiture:
 
     Notons finalement qu'il est important de prendre en compte à la fois l'usage (les km parcourus) et la construction de ce véhicule de plus d'une tonne de matériaux divers.
 
+transport . voiture . quartier:
+  question: Habitez-vous dans le quartier de la porte d'Orléans du 14ème arrondissement de Paris ?
+  description: |
+    Le quartier de la porte d'Orléans est représenté par le zone bleue sur la carte ci-dessous ![]
+  par défaut: non #Décommenter le par défaut si on veut éviter le problème de chiffrage de départ de l'empreinte --> mais la question quartier passera après celle des km
+
 #transport . voiture . km:
 #  titre: Km en voiture
 #  question: Quelle distance parcourez-vous à l'année en voiture ????
@@ -64,20 +70,32 @@ transport . voiture:
 #transport . voiture . km domicile travail:
 #  formule: km * 1
 transport . voiture . km:
+  applicable si:
+    est défini: quartier
   titre: Km en voiture
-  question: En vous aidant de l'aide à la saisie ci-dessous et sans compter les déplacements pour des missions professionnelles, quelle distance parcourez-vous en voiture à l'année ?
+#  question: En vous aidant de l'aide à la saisie ci-dessous et sans compter les déplacements pour des missions professionnelles, quelle distance parcourez-vous en voiture à l'année ?
+  question: Quelle distance parcourez-vous à l'année en voiture (que vous soyez conducteur ou passager) ?
   description: |
-    Vous disposez de trois types de modalités pour renseigner les trajets que vous faites que vous soyez conducteur ou passager: 
-      - Domicile-Travail. Vous pouvez spécifier ces trajets selon une fréquence journalière, hebdomadaire, mensuelle ou annuelle.
-      - Régulier. Ces trajets englobent tous les trajets récurrents (courses, loisirs, sport, famille, etc.) que vous faites sur **une semaine**. Cherchez avant tout à renseigner un nombre de kilomètres cohérent avec votre mode de vie, ce n'est pas grave si vous ne conaissez pas la distance exacte hebdomadaire.
-      - Vacances/Week-end. Ces trajets sont à spécifier selon une temporalité annuelle. A vous de faire un petit calcul de tête pour estimer un kilométrage annuel.
-
-    Vous pouvez utiliser plusieurs fois chaque modalité si vous souhaitez distinguer plusieurs types de trajets (comme différentes vacances par exemple). Enfin, pensez à bien renseigner un nombre de passager moyen cohérent avec les types de trajet que vous renseignez.
+    En ne prenant en compte **uniquement** les déplacements personnels, choisissez la fréquence, la distance et le nombre de passagers (moyens) pour ces 3 types de trajet :
+      - Domicile-Travail : **choisissez une fréquence** et estimez la distance en kilomètre.
+      - Personnel courant : vos trajets personnels récurrents (courses, loisirs, sport, famille, etc.). Estimer les distances **sur une semaine**, en cohérence avec vos habitudes.
+      - Vacances/Week-end : essayez d’estimer une distance **à l’année**. À vous de faire un petit calcul de tête pour estimer un kilométrage.
     
-    **Un exemple** : si vous faites 10 km aller-retour pour vous rendre sur votre lieu de travail et cela 5 fois par semaine avec une autre personne dans la voiture, renseignez une seule modalité : 10 km / 5 / semaines / 2
-
-    **Un rappel** : ne comptez pas les déplacements pour des missions professionnelles ! Cela relève de la responsabilité de votre entreprise.
-#  # It seems that there is a [publicodes bug](https://github.com/publicodes/publicodes/issues/517). For now, we can't use `km annuels moyen réel` directly here, until the problem is fixed.
+    Vous n'êtes pas obligés d'utiliser tous les labels **ET** vous pouvez aussi **utiliser plusieurs fois chaque label** pour distinguer différents trajets (comme différentes vacances ou différents trajets réguliers). 
+    
+    > **Exemple** : Pour un trajet de 20 km aller-retour pour aller au travail 5 fois par semaine avec un collègue, renseignez ainsi : Label : _Domicile-Travail_ ; Distance : _20_ ; Fréquence : _5 x semaine_ ; Passagers : _2_
+#  description: |
+#    Vous disposez de trois types de modalités pour renseigner les trajets que vous faites que vous soyez conducteur ou passager: 
+#      - Domicile-Travail. Vous pouvez spécifier ces trajets selon une fréquence journalière, hebdomadaire, mensuelle ou annuelle.
+#      - Régulier. Ces trajets englobent tous les trajets récurrents (courses, loisirs, sport, famille, etc.) que vous faites sur **une semaine**. Cherchez avant tout à renseigner un nombre de kilomètres cohérent avec votre mode de vie, ce n'est pas grave si vous ne conaissez pas la distance exacte hebdomadaire.
+#      - Vacances/Week-end. Ces trajets sont à spécifier selon une temporalité annuelle. A vous de faire un petit calcul de tête pour estimer un kilométrage annuel.
+#
+#    Vous pouvez utiliser plusieurs fois chaque modalité si vous souhaitez distinguer plusieurs types de trajets (comme différentes vacances par exemple). Enfin, pensez à bien renseigner un nombre de passager moyen cohérent avec les types de trajet que vous renseignez.
+#    
+#    **Un exemple** : si vous faites 10 km aller-retour pour vous rendre sur votre lieu de travail et cela 5 fois par semaine avec un collègue, renseignez une seule modalité : 10 km / 5 / semaines / 2
+#
+#    **Un rappel** : ne comptez pas les déplacements pour des missions professionnelles ! Cela relève de la responsabilité de votre entreprise.
+##  # It seems that there is a [publicodes bug](https://github.com/publicodes/publicodes/issues/517). For now, we can't use `km annuels moyen réel` directly here, until the problem is fixed.
   par défaut: 8210
   unité: km
   plancher: 0
