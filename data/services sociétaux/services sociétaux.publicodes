@@ -66,9 +66,9 @@ services sociétaux . question rhétorique . ok:
 
 services sociétaux . connaissance su:
 #  question: Connaissez-vous la Sphère d'Usage à laquelle vous appartenez ?
-  question: Maintenant, revenons au quartier de la porte d'Orléans ! Vous a t'on attribué un numéro de groupe à la suite d'un de nos questionnaires réalisés dans le quartier ?
+  question: Maintenant, revenons au quartier de la porte d'Orléans ! Vous a t'on attribué un code secret à la suite d'un de nos questionnaires réalisés dans le quartier ?
   description: |
-    Si c'est le cas répondez "Oui" et cliquez sur le numéro de groupe qui vous a été attribué. 
+    Si c'est le cas répondez "Oui" et choisissez ensuite le code qui vous a été attribué. 
     
     Si ce n'est pas le cas (ou si vous ne vivez pas à la porte d'Orléans) cliquez "Non" et répondez aux questions (très simples) qui suivent.
 
@@ -100,7 +100,7 @@ services sociétaux . su . sélection su:
 services sociétaux . su . choix:
   applicable si: connaissance su
 #  question: A quelle Sphère d'Usage appartenez-vous ?
-  question: Quel numéro de groupe vous a été attribué ?
+  question: Quel code secret vous a été transmis ?
   par défaut: SU 1
   formule:
     une possibilité:
@@ -112,13 +112,13 @@ services sociétaux . su . choix:
 #        - SU 4
 
 services sociétaux . su . choix . SU 1:
-  titre: Groupe 1
+  titre: "1"
 
 services sociétaux . su . choix . SU 2:
-  titre: Groupe 2
+  titre: "2"
 
 services sociétaux . su . choix . SU 3:
-  titre: Groupe 3
+  titre: "3"
 
 #services sociétaux . su . choix . SU 4:
 #  titre: Nom de la SU 4

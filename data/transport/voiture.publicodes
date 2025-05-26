@@ -76,12 +76,14 @@ transport . voiture . km:
 #  question: En vous aidant de l'aide à la saisie ci-dessous et sans compter les déplacements pour des missions professionnelles, quelle distance parcourez-vous en voiture à l'année ?
   question: Quelle distance parcourez-vous à l'année en voiture (que vous soyez conducteur ou passager) ?
   description: |
-    En ne prenant en compte **uniquement** les déplacements personnels, choisissez la fréquence, la distance et le nombre de passagers (moyens) pour ces 3 types de trajet :
+    En prenant en compte **uniquement** les déplacements personnels, choisissez la fréquence, la distance et le nombre de personnes à bord (en moyenne) pour ces 3 types de trajet :
       - Domicile-Travail : **choisissez une fréquence** et estimez la distance en kilomètre.
       - Personnel courant : vos trajets personnels récurrents (courses, loisirs, sport, famille, etc.). Estimer les distances **sur une semaine**, en cohérence avec vos habitudes.
       - Vacances/Week-end : essayez d’estimer une distance **à l’année**. À vous de faire un petit calcul de tête pour estimer un kilométrage.
+
+    Si vous n'avez **fait aucun km en voiture sur l'année** (même pas en tant que passager), cliquez sur "Aucun km en voiture" et passez à la question suivante.
     
-    Vous n'êtes pas obligés d'utiliser tous les labels **ET** vous pouvez aussi **utiliser plusieurs fois chaque label** pour distinguer différents trajets (comme différentes vacances ou différents trajets réguliers). 
+    Enfin, vous n'êtes pas obligés d'utiliser tous les labels **ET** vous pouvez aussi **utiliser plusieurs fois chaque label** pour distinguer différents trajets (comme différentes vacances ou différents trajets réguliers). 
     
     > **Exemple** : Pour un trajet de 20 km aller-retour pour aller au travail 5 fois par semaine avec un collègue, renseignez ainsi : Label : _Domicile-Travail_ ; Distance : _20_ ; Fréquence : _5 x semaine_ ; Passagers : _2_
 #  description: |
@@ -100,8 +102,8 @@ transport . voiture . km:
   unité: km
   plancher: 0
   plafond: 99999
-#  suggestions:
-#    zéro: 0
+  suggestions:
+    Aucun km en voiture: 0
 #    vacances: 2000
 #    10km / jour: 3600
 #    1000km / mois: 12000
