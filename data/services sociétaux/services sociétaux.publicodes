@@ -1,6 +1,10 @@
 services sociétaux:
   titre: Services sociétaux
-  applicable si: question rhétorique
+  applicable si: 
+    toutes ces conditions:
+      - question rhétorique
+#      - explication su
+#      - remerciements
   abréviation: S. sociétaux
   icônes: 🏛️
   description: |
@@ -25,6 +29,7 @@ services sociétaux:
     somme:
       - services publics
       - services marchands
+      - su
 
 services sociétaux . question rhétorique:
   titre: Question d'information sur les services communs
@@ -32,7 +37,6 @@ services sociétaux . question rhétorique:
   description: |
 
     Cette catégorie ne dépend pas de vos réponses. L'empreinte associée est calculée via une approche macro-économique à l'échelle nationale. [En savoir plus](/documentation/services-sociétaux).
-
   par défaut: "'ok'"
   formule:
     une possibilité:
@@ -42,3 +46,346 @@ services sociétaux . question rhétorique:
 
 services sociétaux . question rhétorique . ok:
   titre: OK
+
+#services sociétaux . explication su:
+#  titre: Informations sur les questions SU
+#  question: Maintenant, revenons à votre quartier ! En 6 questions simples nous allons déterminer la Sphère d'Usage à laquelle vous appartenez.
+#  description: |
+#    Les Sphères d'Usage représentent des groupes d'individus qui partagent, au sein de votre quartier, des similarités de modes de vie en matière de mobilité, logement, alimentation et consommation.
+#    
+#    Si vous connaissez déjà votre Sphère d'Usage répondez "Oui" à la question suivante et cochez ensuite celle qui vous a été attribuée.
+#  par défaut: "'ok'"
+#  formule:
+#    une possibilité:
+#      choix obligatoire: oui
+#      possibilités:
+#        - ok
+#
+#services sociétaux . explication su . ok:
+#  titre: OK
+
+services sociétaux . connaissance su:
+#  question: Connaissez-vous la Sphère d'Usage à laquelle vous appartenez ?
+  question: Maintenant, revenons au quartier de la porte d'Orléans ! Vous a t'on attribué un code secret à la suite d'un de nos questionnaires réalisés dans le quartier ?
+  description: |
+    Si c'est le cas répondez "Oui" et choisissez ensuite le code qui vous a été attribué. 
+    
+    Si ce n'est pas le cas (ou si vous ne vivez pas à la porte d'Orléans) cliquez "Non" et répondez aux questions (très simples) qui suivent.
+
+services sociétaux . su:
+  unité: kgCO2e
+  formule: 
+    variations:
+      - si: 
+          toutes ces conditions:
+            - est défini: connaissance su
+            - connaissance su
+        alors: sélection su
+      - sinon: calcul su
+
+services sociétaux . su . sélection su:
+  formule:
+    variations:
+      - si: choix = 'SU 1'
+        alors: 0.001
+      - si: choix = 'SU 2'
+        alors: 0.002
+      - si: choix = 'SU 3'
+        alors: 0.003
+#      - si: choix = 'SU 4'
+#        alors: 0.004
+  unité: kgCO2e
+  par défaut: 0
+
+services sociétaux . su . choix:
+  applicable si: connaissance su
+#  question: A quelle Sphère d'Usage appartenez-vous ?
+  question: Quel code secret vous a été transmis ?
+  par défaut: SU 1
+  formule:
+    une possibilité:
+      choix obligatoire: oui
+      possibilités:
+        - SU 1
+        - SU 2
+        - SU 3
+#        - SU 4
+
+services sociétaux . su . choix . SU 1:
+  titre: "1"
+
+services sociétaux . su . choix . SU 2:
+  titre: "2"
+
+services sociétaux . su . choix . SU 3:
+  titre: "3"
+
+#services sociétaux . su . choix . SU 4:
+#  titre: Nom de la SU 4
+
+services sociétaux . su . calcul su:
+  titre: Calcul des SU
+  par défaut: 0
+  description: |
+    Les 6 questions suivantes ont pour but de vous attribuer une Sphère d'Usage, c'est-à-dire un groupe dont vous partagez des similarités de modes de vie en matière de mobilité, logement, alimentation et consommation au sein de votre quartier.
+  formule:
+    somme:
+      - 0.0001 * question 1 . conversion
+      - 0.0001 * question 2 . conversion
+      - 0.0001 * question 3 . conversion
+      - 0.0001 * question 4 . conversion
+      - 0.0001 * question 5 . conversion
+      - 0.0001 * question 6 . conversion
+  unité: kgCO2e
+
+services sociétaux . su . calcul su . question 1:
+  question: En accord avec les réponses données précédemment, lors de vos repas, vous mangez de la viande (poulet, bœuf, etc.)... ?
+#  par défaut: "'je ne sais pas'"
+  formule:
+    une possibilité:
+      choix obligatoire: oui
+      possibilités:
+        - faible
+        - moyen
+        - beaucoup
+
+#### Si on choisi de prendre en compte les infos du test NGC
+#services sociétaux . su . calcul su . question 1:
+##  question: En accord avec les réponses données précédemment, lors de vos repas, vous mangez de la viande (poulet, bœuf, etc.)... ?
+##  par défaut: "'je ne sais pas'"
+#  formule:
+#    variations:
+#      - si: (alimentation . plats . viande blanche . nombre + alimentation . plats . viande rouge . nombre) >= 10
+#        alors: beaucoup
+#      - si:
+#          toutes ces conditions:
+#            - (alimentation . plats . viande blanche . nombre + alimentation . plats . viande rouge . nombre) < 10
+#            - (alimentation . plats . viande blanche . nombre + alimentation . plats . viande rouge . nombre) >= 5
+#        alors: moyen
+#      - si: (alimentation . plats . viande blanche . nombre + alimentation . plats . viande rouge . nombre) < 5
+#        alors: faible
+
+services sociétaux . su . calcul su . question 1 . faible:
+  titre: 0 à 4 repas par semaine (rarement ou jamais)
+services sociétaux . su . calcul su . question 1 . moyen:
+  titre: 5 à 9 repas par semaine (souvent)
+services sociétaux . su . calcul su . question 1 . beaucoup:
+  titre: 10 repas par semaine ou plus (dans presque tous les repas)
+
+services sociétaux . su . calcul su . question 1 . conversion:
+  formule:
+    variations:
+      - si: question 1 = 'faible'
+        alors: 0.1
+      - si: question 1 = 'moyen'
+        alors: 0.2
+      - si: question 1 = 'beaucoup'
+        alors: 0.3
+  description: |
+    On convertit les réponses textuelles en valeur pour pouvoir les sommer et ainsi conserver la réponse utilisateur.
+
+services sociétaux . su . calcul su . question 2:
+  question: Comment vous déplacez-vous au quotidien ? 
+  description: |
+    Si il y en a plusieurs, indiquez votre mode de transport principal, celui avec lequel vous faites le plus de distance au quotidien ?
+  formule:
+    une possibilité:
+      choix obligatoire: oui
+      possibilités:
+        - voiture
+        - transports en commun
+        - marche vélo trottinette
+
+services sociétaux . su . calcul su . question 2 . conversion:
+  formule:
+    variations:
+      - si: question 2 = 'voiture'
+        alors: 0.1
+      - si: question 2 = 'transports en commun'
+        alors: 0.2
+      - si: question 2 = 'marche vélo trottinette'
+        alors: 0.3
+  description: |
+    On convertit les réponses textuelles en valeur pour pouvoir les sommer et ainsi conserver la réponse utilisateur.
+
+services sociétaux . su . calcul su . question 2 . voiture:
+  titre: Voiture
+services sociétaux . su . calcul su . question 2 . transports en commun:
+  titre: Transports en commun
+services sociétaux . su . calcul su . question 2 . marche vélo trottinette:
+  titre: Marche, vélo ou trottinette
+
+services sociétaux . su . calcul su . question 3:
+  question: En dehors du temps de travail, combien de temps passez vous devant les écrans (téléphone, ordinateur, TV...) ?
+  formule:
+    une possibilité:
+      choix obligatoire: oui
+      possibilités:
+        - faible
+        - moyen
+        - beaucoup
+
+#### Si on choisi de prendre en compte les infos du test NGC
+#services sociétaux . su . calcul su . question 3:
+##  question: Combien de temps passez vous devant les écrans : téléphone, ordinateur, TV... (en dehors du travail) ?
+#  formule:
+#    variations:
+#      - si: divers . numérique . internet . durée journalière > 4
+#        alors: beaucoup
+#      - si:
+#          toutes ces conditions:
+#            - divers . numérique . internet . durée journalière < 4
+#            - divers . numérique . internet . durée journalière >= 2
+#        alors: moyen
+#      - si: divers . numérique . internet . durée journalière < 2
+#        alors: faible
+
+services sociétaux . su . calcul su . question 3 . faible:
+  titre: Un peu (mails, bureautique, peu de streaming ou de jeux vidéo, moins de 2h par jour)
+services sociétaux . su . calcul su . question 3 . moyen:
+  titre: Moyennement (usages variés avec entre 2 et 4 heures par jour)
+services sociétaux . su . calcul su . question 3 . beaucoup:
+  titre: Beaucoup (usages intensifs avec plus de 4 heures par jour)
+
+services sociétaux . su . calcul su . question 3 . conversion:
+  formule:
+    variations:
+      - si: question 3 = 'faible'
+        alors: 0.1
+      - si: question 3 = 'moyen'
+        alors: 0.2
+      - si: question 3 = 'beaucoup'
+        alors: 0.3
+  description: |
+    On convertit les réponses textuelles en valeur pour pouvoir les sommer et ainsi conserver la réponse utilisateur.
+
+services sociétaux . su . calcul su . question 4:
+  question: Quand vous avez besoin d’un objet (vêtements, électronique, mobilier, etc.), vous choisissez…
+  formule:
+    une possibilité:
+      choix obligatoire: oui
+      possibilités:
+        - priorité neuf
+        - mélange
+        - priorité occasion
+
+services sociétaux . su . calcul su . question 4 . priorité neuf:
+  titre: …le neuf en priorité (même si l'occasion est disponible)
+services sociétaux . su . calcul su . question 4 . mélange:
+  titre: …un mélange entre neuf et occasion (selon la disponibilité ou le type de produit)
+services sociétaux . su . calcul su . question 4 . priorité occasion:
+  titre: …l’occasion en priorité (neuf seulement en dernier recours)
+
+services sociétaux . su . calcul su . question 4 . conversion:
+  formule:
+    variations:
+      - si: question 4 = 'priorité neuf'
+        alors: 0.1
+      - si: question 4 = 'mélange'
+        alors: 0.2
+      - si: question 4 = 'priorité occasion'
+        alors: 0.3
+  description: |
+    On convertit les réponses textuelles en valeur pour pouvoir les sommer et ainsi conserver la réponse utilisateur.
+
+services sociétaux . su . calcul su . question 5:
+  question: En moyenne, combien de vols en avion faites-vous par an ?
+  description: |
+    Si vos trajets en avion varient beaucoup d'une année à l'autre, essayez de faire la moyenne sur les 3 dernières années. Par exemple : si vous avez fait 4 vols en 2023, et 0 en 2024, vous pouvez inscrire 1 à 3 vols.
+  formule:
+    une possibilité:
+      choix obligatoire: oui
+      possibilités:
+        - faible
+        - moyen
+        - beaucoup
+
+services sociétaux . su . calcul su . question 5 . faible:
+  titre: Moins d'1 vol par an
+services sociétaux . su . calcul su . question 5 . moyen:
+  titre: 1 à 3 vols
+services sociétaux . su . calcul su . question 5 . beaucoup:
+  titre: Plus de 3 vols
+
+services sociétaux . su . calcul su . question 5 . conversion:
+  formule:
+    variations:
+      - si: question 5 = 'faible'
+        alors: 0.1
+      - si: question 5 = 'moyen'
+        alors: 0.2
+      - si: question 5 = 'beaucoup'
+        alors: 0.3
+  description: |
+    On convertit les réponses textuelles en valeur pour pouvoir les sommer et ainsi conserver la réponse utilisateur.
+
+services sociétaux . su . calcul su . question 6:
+  question: Comment votre logement est chauffé ?
+  description: |
+    Si vous ne connaissez pas le mode de chauffage, sélectionnez la réponse première réponse (Électricité, réseau de chaleur ou pompe à chaleur), sauf si quelqu'un vient régulièrement faire un relevé du gaz chez vous, auquel cas sélectionnez la réponse Gaz.
+  formule:
+    une possibilité:
+      choix obligatoire: oui
+      possibilités:
+        - écologique
+        - gaz
+        - fioul
+
+#### Si on choisi de prendre en compte les infos du test NGC
+#services sociétaux . su . calcul su . question 6:
+##  question: Comment votre logement est chauffé ?
+#  formule:
+#    variations:
+#      - si:
+#           une de ces conditions:
+#             - électricité . présent
+#             - réseau de chaleur . présent
+#             - PAC . présent
+#             - bois . présent
+#        alors: écologique
+#      - si:
+#           une de ces conditions: 
+#             - gaz . présent
+#             - bouteille gaz . présent
+#             - citerne propane . présent
+#        alors: gaz
+#      - si: fioul . présent
+#        alors: fioul
+
+services sociétaux . su . calcul su . question 6 . écologique:
+  titre:  Électricité, réseau de chaleur ou pompe à chaleur
+services sociétaux . su . calcul su . question 6 . gaz:
+  titre: Gaz
+services sociétaux . su . calcul su . question 6 . fioul:
+  titre: Fioul
+
+services sociétaux . su . calcul su . question 6 . conversion:
+  formule:
+    variations:
+      - si: question 6 = 'écologique'
+        alors: 0.1
+      - si: question 6 = 'gaz'
+        alors: 0.2
+      - si: question 6 = 'fioul'
+        alors: 0.3
+  description: |
+    On convertit les réponses textuelles en valeur pour pouvoir les sommer et ainsi conserver la réponse utilisateur.
+
+#services sociétaux . remerciements:
+#  applicable si:
+#    toutes ces conditions:
+#      - est défini: services sociétaux . su
+#      - services sociétaux . su >= 0
+#  titre: Remerciements
+#  question: Les résultats de cette enquête permettront de dégager des sujets prioritaires d’actions collectives pour réduire l’impact sur le climat du quartier, en accord avec les préoccupations des habitants. Si vous ne l’avez pas déjà fait, faites remonter vos préoccupations via ce questionnaire de 10 min.
+#  description: |
+#    Lien du questionnaire en question
+#  par défaut: "'ok'"
+#  formule:
+#    une possibilité:
+#      choix obligatoire: oui
+#      possibilités:
+#        - ok
+#
+#services sociétaux . remerciements . ok:
+#  titre: OK

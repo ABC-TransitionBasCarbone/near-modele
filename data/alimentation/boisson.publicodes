@@ -215,10 +215,12 @@ alimentation . boisson . tasse de chocolat chaud . empreinte lait:
     variations:
       - si: type de lait = 'lait de vache'
         alors: empreinte lait de vache
-      - si: type de lait = 'lait de soja'
-        alors: empreinte lait de soja
-      - si: type de lait = 'lait d'avoine'
-        alors: empreinte lait d'avoine
+      - si: type de lait = 'lait végétal'
+        alors: empreinte lait végétal
+#      - si: type de lait = 'lait de soja'
+#        alors: empreinte lait de soja
+#      - si: type de lait = 'lait d'avoine'
+#        alors: empreinte lait d'avoine
 
 alimentation . boisson . tasse de chicorée:
   titre: Empreinte d'une tasse de chicorée
@@ -259,15 +261,18 @@ alimentation . type de lait:
       choix obligatoire: oui
       possibilités:
         - lait de vache
-        - lait de soja
-        - lait d'avoine
+        - lait végétal
+#        - lait de soja
+#        - lait d'avoine
 
 alimentation . type de lait . lait de vache:
   titre: Lait de vache
-alimentation . type de lait . lait de soja:
-  titre: Lait de soja
-alimentation . type de lait . lait d'avoine:
-  titre: Lait d'avoine
+alimentation . type de lait . lait végétal:
+  titre: Lait végétal (soja, avoine, etc.)
+#alimentation . type de lait . lait de soja:
+#  titre: Lait de soja
+#alimentation . type de lait . lait d'avoine:
+#  titre: Lait d'avoine
 
 alimentation . empreinte lait de vache:
   formule:
@@ -286,6 +291,28 @@ alimentation . empreinte eau lait de vache:
   formule: 326
   unité: l/kg
   note: Facteur d'émission issu d'[Agribalyse, lait demi-écrémé pasteurisé](https://agribalyse.ademe.fr/app/aliments/19042#Lait_demi-%C3%A9cr%C3%A9m%C3%A9,_pasteuris%C3%A9).
+
+alimentation . empreinte lait végétal:
+  formule:
+    variations:
+      - si: métrique = "carbone"
+        alors: empreinte carbone lait végétal
+      - si: métrique = "eau"
+        alors: empreinte eau lait végétal
+
+alimentation . empreinte carbone lait végétal:
+  formule:
+    moyenne:
+      - empreinte carbone lait de soja
+      - empreinte carbone lait d'avoine
+  unité: kgCO2e/kg
+
+alimentation . empreinte eau lait végétal:
+  formule:
+    moyenne:
+      - empreinte eau lait de soja
+      - empreinte eau lait d'avoine
+  unité: kgCO2e/kg
 
 alimentation . empreinte lait de soja:
   formule:

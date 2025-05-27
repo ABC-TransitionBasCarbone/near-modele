@@ -38,6 +38,14 @@ services sociétaux . bien placer argent:
 
     Ceci étant, si vous êtes propriétaire et que votre logement n'est pas très bien isolé, réaliser des travaux d'isolation est également un investissement très rentable, que ce soit financièrement, ou pour la planète ! Bonus : [l'État peut vous aider](https://mesaidesreno.beta.gouv.fr/) !
 
+services sociétaux . near:
+  titre: Participer au programme NEAR de son quartier
+  icônes: 📢🏘️
+  description: |
+    La réduction de notre empreinte n'est pas uniquement le fruit de choix personnels. C’est pourquoi avec le projet NEAR, nous vous proposons d’œuvrer à une échelle plus large, celle de votre quartier.
+
+    Ce dernier a un rôle clé dans la manière dont nous vivons au quotidien. En l’adaptant ensemble, nous pouvons améliorer le cadre de vie et créer des conditions favorables à des choix plus sobres en carbone.
+
 services sociétaux . devenir producteur photovoltaique:
   titre: Devenir producteur d'électricité photovoltaïque
   icônes: 🌞⚡️
