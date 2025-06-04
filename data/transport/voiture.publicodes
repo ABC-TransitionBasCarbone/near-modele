@@ -35,7 +35,9 @@ transport . voiture:
 transport . voiture . quartier:
   question: Habitez-vous dans le quartier de la porte d'Orléans du 14ème arrondissement de Paris ?
   description: |
-    Le quartier de la porte d'Orléans est représenté par le zone bleue sur la carte [ici](https://umap.openstreetmap.fr/fr/map/enquetes-a-portes-dorleans_1196302?feature=Quartier%20Porte%20d%27Orl%C3%A9ans#16/48.8226/2.3197)
+    Le quartier de la porte d'Orléans est représenté par le zone bleue sur la carte ci-dessous. Il est délimité par un rectangle s'étendant 
+    d'Ouest en Est de l'Avenue Georges Lafenestre à la rue Emile Faguet et du Nord au Sud du Boulevard Brune/Jourdan au Périphérique.
+    ![](https://abc-transitionbascarbone.fr/wp-content/uploads/2025/06/Porte_Orleans.jpg)
   par défaut: non #Décommenter le par défaut si on veut éviter le problème de chiffrage de départ de l'empreinte --> mais la question quartier passera après celle des km
 
 #transport . voiture . km:
