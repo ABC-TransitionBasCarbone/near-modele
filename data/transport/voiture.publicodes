@@ -33,11 +33,11 @@ transport . voiture:
     Notons finalement qu'il est important de prendre en compte à la fois l'usage (les km parcourus) et la construction de ce véhicule de plus d'une tonne de matériaux divers.
 
 transport . voiture . quartier:
-  question: Habitez-vous dans le quartier de la porte d'Orléans du 14ème arrondissement de Paris ?
+  question: Habitez-vous dans le quartier Martin Luther King du 17ème arrondissement de Paris ?
   description: |
-    Le quartier de la porte d'Orléans est représenté par le zone bleue sur la carte ci-dessous. Il est délimité par un rectangle s'étendant 
-    d'Ouest en Est de l'Avenue Georges Lafenestre à la rue Emile Faguet et du Nord au Sud du Boulevard Brune/Jourdan au Périphérique.
-    ![](https://abc-transitionbascarbone.fr/wp-content/uploads/2025/06/Porte_Orleans.jpg)
+    Le quartier Martin Luther King est représenté par l'encadré rouge sur la carte ci-dessous. Il est délimité d'Ouest en Est par le Boulevard Berthier et les rues Cardinet, Lemercier
+    et la rue des Moines et du Nord au Sud par l'Avenue de Clichy et la rue Mstislav Rostropovitch.
+    ![](https://abc-transitionbascarbone.fr/wp-content/uploads/2026/08/image-12.jpg)
   par défaut: non #Décommenter le par défaut si on veut éviter le problème de chiffrage de départ de l'empreinte --> mais la question quartier passera après celle des km
 
 #transport . voiture . km:
