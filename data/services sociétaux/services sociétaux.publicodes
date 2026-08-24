@@ -66,11 +66,11 @@ services sociétaux . question rhétorique . ok:
 
 services sociétaux . connaissance su:
 #  question: Connaissez-vous la Sphère d'Usage à laquelle vous appartenez ?
-  question: Maintenant, revenons au quartier de la porte d'Orléans ! Vous a t'on attribué un code secret à la suite d'un de nos questionnaires réalisés dans le quartier ?
+  question: Maintenant, revenons au quartier Martin Luther King ! Vous a t'on attribué un code secret à la suite d'un de nos questionnaires réalisés dans le quartier ?
   description: |
     Si c'est le cas répondez "Oui" et choisissez ensuite le code qui vous a été attribué. 
     
-    Si ce n'est pas le cas (ou si vous ne vivez pas à la porte d'Orléans) cliquez "Non" et répondez aux questions (très simples) qui suivent.
+    Si ce n'est pas le cas (ou si vous ne vivez pas dans le quartier Martin Luther King) cliquez "Non" et répondez aux questions (très simples) qui suivent.
 
 services sociétaux . su:
   unité: kgCO2e
